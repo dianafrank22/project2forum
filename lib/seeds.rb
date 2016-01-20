@@ -1,15 +1,15 @@
-require 'pg'
+# require 'pg'
 
-if ENV if ENV["RACK_ENV"] == 'production'
-	conn = PG.connect(
-		dbname: ENV["POSTGRES_DB"],
-		host: ENV["POSTGRES_HOST"],
-		password: ENV["POSTGRES_PASS"],
-		user: ENV["POSTGRES_USER"]
-		)
-else
-conn = PG.connect(dbname: "project2")
-end
+# if ENV if ENV["RACK_ENV"] == 'production'
+# 	conn = PG.connect(
+# 		dbname: ENV["POSTGRES_DB"],
+# 		host: ENV["POSTGRES_HOST"],
+# 		password: ENV["POSTGRES_PASS"],
+# 		user: ENV["POSTGRES_USER"]
+# 		)
+# else
+# conn = PG.connect(dbname: "project2")
+# end
 
 # # creates table for categories
 
@@ -24,14 +24,14 @@ end
 
 
 # creates table for users
-conn.exec("DROP TABLE IF EXISTS users")
+# conn.exec("DROP TABLE IF EXISTS users")
 
-conn.exec("CREATE TABLE users(
-    id SERIAL PRIMARY KEY,
-    user_name VARCHAR (255),
-    password VARCHAR
-   )"
-)
+# conn.exec("CREATE TABLE users(
+#     id SERIAL PRIMARY KEY,
+#     user_name VARCHAR (255),
+#     password VARCHAR
+#    )"
+# )
 
 # # creates table for posts
 
