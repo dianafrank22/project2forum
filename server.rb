@@ -24,7 +24,7 @@ module Forum
         table = "users"	
         username = params["username"]
         password = params["password"]
-        db.exec("INSERT INTO users (username, password) VALUES ('#{username}', '#{password}')")      
+        db.exec("INSERT INTO #{users} (username, password) VALUES ('#{username}', '#{password}')")      
   		  redirect ('/')
       end
 
