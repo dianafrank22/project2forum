@@ -1,7 +1,7 @@
 module Forum
 	class Server < Sinatra::Base
 
- 	@@db = PG.connect(dbname: "project2")
+ 	# @@db = PG.connect(dbname: "project2")
 # homepage
 		get "/" do
 		erb :index
