@@ -12,24 +12,6 @@ module Forum
    		erb :login
   		end
 
-		post '/login' do
-	    	users = @@db.exec_params(<<-SQL, [params[:login_name]])
-	      		SELECT * FROM users WHERE login_name = $1
-	    	SQL
-				if @user	
-	    			if BCrypt::Password.new(@user["login_password_digest"]) == params[:login_password]
-	    			session["user_id"] = @user["id"]
-	    		erb :index
-	    	else 
-	    		@error = "Invalid Password"
-	    		erb :login
-	    	end 
-	  		else 
-	  			@error = "Invalid Username"
-	  			erb :login 
-	  		end
-  		end
-
 
 	# get "/signup" do 
 	# 	erb :signup
