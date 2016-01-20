@@ -20,10 +20,11 @@ module Forum
   			erb :signup
   		end
 
-  		post "/signup" do 	
+  		post "/signup" do 
+        table = "users"	
         username = params["username"]
         password = params["password"]
-        db.exec("INSERT INTO users (username, password) VALUES ('#{username}', '#{password}')")      
+        db.exec("INSERT INTO #{table} (username, password) VALUES ('#{username}', '#{password}')")      
   		  redirect ('/')
       end
 
@@ -59,7 +60,7 @@ module Forum
 # 		get "/category/:id"
 # 		erb :category
 # 		end 
-def db
+    def db
       PG.connect(dbname: "project2")
     end
 
