@@ -23,7 +23,7 @@ module Forum
   		post "/signup" do 	
         username = params["username"]
         password = params["password"]
-        db.exec("INSERT INTO users (username, password) VALUES ('#{username}', '#{username}'")      
+        db.exec("INSERT INTO users (username, password) VALUES ('#{username}', '#{password}')")      
   		  redirect ('/')
       end
 
