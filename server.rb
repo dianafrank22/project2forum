@@ -33,6 +33,9 @@ post "/comment"
 # redirect? 
 end
 
+get "/categories"
+erb :categories
+
 get "/category/:id"
 erb :category
 end 
