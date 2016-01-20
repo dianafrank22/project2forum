@@ -1,0 +1,50 @@
+.header {
+  padding: 30px;
+  border-bottom: 4px solid #000;
+
+}
+
+.main_content {
+  padding: 30px;
+}
+
+ul.main_navigation {
+  float: right;
+  margin: 0;
+  padding: 0;
+  margin: 33px 0 0 0;
+}
+
+ul.main_navigation li {
+  display: inline-block;
+  font-size: 20px;
+  position: relative;
+}
+
+ul.main_navigation a {
+  font-family: "Helvetica";
+  font-style: italic;
+  color: #000;
+  text-decoration: none;
+  display: inline-block;
+  padding: 12px;
+  display: inline-block;
+}
+
+ul.main_navigation a:hover,
+ul.main_navigation a.hover {
+  background: #de5a51;
+  color: #fff;
+}
+
+ul.main_navigation li ul.sub_main_navigation {
+  position: absolute;
+  top: 44px;
+  background: #000;
+  display: none
+}
+
+ul.main_navigation li ul.sub_main_navigation a {
+  min-width: 200px;
+  color: #fff;
+}
