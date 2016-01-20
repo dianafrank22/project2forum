@@ -4,7 +4,6 @@ GEM
     backports (3.6.7)
     bcrypt (3.1.10)
     coderay (1.1.0)
-    diff-lcs (1.2.5)
     method_source (0.8.2)
     multi_json (1.11.2)
     pg (0.18.4)
@@ -18,19 +17,6 @@ GEM
     rack-test (0.6.3)
       rack (>= 1.0)
     redcarpet (3.3.4)
-    rspec (3.4.0)
-      rspec-core (~> 3.4.0)
-      rspec-expectations (~> 3.4.0)
-      rspec-mocks (~> 3.4.0)
-    rspec-core (3.4.1)
-      rspec-support (~> 3.4.0)
-    rspec-expectations (3.4.0)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-mocks (3.4.1)
-      diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.4.0)
-    rspec-support (3.4.1)
     sinatra (1.4.6)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -53,7 +39,6 @@ DEPENDENCIES
   pg
   pry
   redcarpet
-  rspec
   sinatra
   sinatra-contrib
 

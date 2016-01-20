@@ -1,4 +1,4 @@
-require_relative "./server.rb"
+require_relative "server"
 require "pg"
 require "sinatra/base"
 

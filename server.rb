@@ -1,45 +1,49 @@
-require "sinatra/base"
-require "pg"
-require "bcrypt"
-
 module Forum
-class Server < Sinatra::Base
+	class Server < Sinatra::Base
 
-get "/" do
-erb :index
-end
+# homepage
+		get "/" do
+		erb :index
+		end
 
-get "/login" do 
-erb :login
-end
+# login page
+		get "/login" do 
+		erb :login
+		end
 
-get "/user/:id"
-params [:id]
-erb :user
-end
+		# get "/user/:id"
+		# params [:id]
+		# erb :user
+		# end
+# new post
+		get "/new"
+		erb :newpost
+		end
 
-get "/new"
-erb :newpost
-end
+# viewing the post
+		get "/post/:id"
+		erb :post
+		end
 
-get "/post/:id"
-erb :post
-end
+# adding a comment
+		get "/comment"
+		erb :comment
+		end
 
-get "/comment"
-erb :comment
-end
+		# post "/comment" 
+		# # redirect? 
+		# end
 
-post "/comment" 
-# redirect? 
-end
+# view a list of categories
+		get "/categories"
+		erb :categories
+		end
 
-get "/categories"
-erb :categories
-
-get "/category/:id"
-erb :category
-end 
+# view a list of posts in that category
+		get "/category/:id"
+		erb :category
+		end 
 
 
+	end
 end
