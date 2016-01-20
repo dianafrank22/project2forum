@@ -41,11 +41,11 @@ conn.exec("DROP TABLE IF EXISTS posts")
 conn.exec("CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
     topic_name VARCHAR(255),
-   	category_id INTERGER REFERENCES categories(id),
+   	category_id INTEGER REFERENCES categories(id),
    	comments INTEGER,
-   	votes INTERGER,
+   	votes INTEGER,
    	content VARCHAR,
-   	user_id INTERGER REFERENCES users(id)
+   	user_id INTEGER REFERENCES users(id)
   )"
 )
 
@@ -56,7 +56,7 @@ conn.exec("DROP TABLE IF EXISTS comments")
 conn.exec("CREATE TABLE comments(
     id SERIAL PRIMARY KEY,
  	content VARCHAR,
- 	post_id INTERGER REFERENCES posts(id),
+ 	post_id INTEGER REFERENCES posts(id),
  	user_id REFERENCES users(id),
  	votes NUM 
   )"
