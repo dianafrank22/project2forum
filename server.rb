@@ -2,6 +2,7 @@ require "sinatra/base"
 require "pg"
 require "bcrypt"
 
+module Forum
 class Server < Sinatra::Base
 
 get "/" do
@@ -39,3 +40,6 @@ erb :categories
 get "/category/:id"
 erb :category
 end 
+
+
+end
