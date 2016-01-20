@@ -24,7 +24,7 @@ module Forum
         table = "users"	
         username = params["username"]
         password = params["password"]
-        db.exec("INSERT INTO #{users} (username, password) VALUES ('#{username}', '#{password}')")      
+        db.exec("INSERT INTO #{table} (username, password) VALUES ('#{username}', '#{password}')")      
   		  redirect ('/')
       end
 
@@ -32,15 +32,22 @@ module Forum
 		# params [:id]
 		# erb :user
 		# end
-# new post
-# 		get "/new"
-# 		erb :newpost
-# 		end
 
-# # viewing the post
-# 		get "/post/:id"
-# 		erb :post
-# 		end
+      # new post
+      get "/new"
+      	erb :newpost
+      end
+
+      post "/new"
+
+        redirects('/post/:id')
+      end
+
+# viewing the post
+	   	get "/post/:id"
+        @id = db.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+	     	erb :post
+		  end
 
 # # adding a comment
 # 		get "/comment"
