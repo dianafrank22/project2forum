@@ -1,1 +1,29 @@
 <!-- need a psql selector to post all of the category names, and then links to their specific page -->
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Categories</title>
+	<link rel="stylesheet" href="css/style.css">
+  	<link href="css/normalize.css" rel="stylesheet" type="text/css">
+   	<link href="css/skeleton.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+<div class = "six columns">
+
+	<% @categories.each do |category| %>
+		<a href = "/category/<%="#{categories['id']}"%>">
+			<%= "#{category["name"]}"%>
+		</a>
+
+</div>
+	
+</body>
+</html>
+
+
+<!-- psql selector that lists categories by number of posts in it, so that you can see the most popular -->
+<!-- maybe bonus changes it to be alphabatized -->

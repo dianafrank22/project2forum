@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Home</title>
-	<link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  <title>Home</title>
 </head>
 <body>
-<h1> Top Posts </h1>
-<div class = top posts>
-<p> here are the top posts </p>
 
-	<!--  PSQL Select Statement SELECT post-name FROM posts ORDER BY (votes) DESC Limit 3-->
-</div>
+<div class = "toptitle">
+     <h1> Top Posts</h1>
+ </div>
+
+   <div class="row">
+		<div class="six columns">
+  			<p>here are the top posts</p>
+
+  		</div>
+    	<div class="six columns">
+			<button type="button"><a href="/new">New Post</a></button>
+		</div>
+  </div> 
+
 </body>
 </html>
+
+
+	<!--  PSQL Select Statement SELECT post-name FROM posts ORDER BY (votes) DESC Limit 3-->
+

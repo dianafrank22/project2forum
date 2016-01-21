@@ -1,1 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Category</title>
+	  <link rel="stylesheet" href="css/style.css">
+ 	  <link href="css/normalize.css" rel="stylesheet" type="text/css">
+  	  <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+
+<% @category.each do |post| %>
+		<a href = "/post/<%="#{post['id']}"%>">
+			<%= "#{post["topic_name"]}"%>
+		</a>
+	
+</body>
+</html>
 <!-- psql selector that shows posts with that category id -->
+<!-- display posts by number of posts, need sql statement that orders them, put it into server file? -->
