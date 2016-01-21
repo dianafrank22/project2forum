@@ -5,6 +5,21 @@ require "bcrypt"
 module Forum
 	class Server < Sinatra::Base
 
+    enable :sessions
+
+    @@db = PG.connect(dbname: "project2")
+
+# checks to see if user is logged in
+      def current_user 
+        if session["user_id"]
+          @user ||= @@db.exec_params(<<-SQL, [session["user_id"]]).first
+            SELECT * FROM users WHERE id= $1
+          SQL
+        else
+          {}
+        end
+      end
+
  
 # homepage
 		get "/" do
@@ -17,27 +32,21 @@ module Forum
   		end
 
   		post "/login" do 
-        username = params["username"]
-        password = params["password"]
-    
-  
-        if ENV["RACK_ENV"] == 'production'
-          conn = PG.connect(
-          dbname: ENV["POSTGRES_DB"],
-          host: ENV["POSTGRES_HOST"],
-          password: ENV["POSTGRES_PASS"],
-          user: ENV["POSTGRES_USER"]
-          )
-        else
-         conn = PG.connect(dbname: "project2")
+       @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
+         if @user 
+            if @user["password"] = params[:password]
+              session["user_id"] = @user["id"]
+              redirect "/"
+            else
+              erb: login
+            end
+          end
         end
 
-      conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
-      [username, password]
-      )
 
-      @login_info = true
-      erb :index
+      # compare given information to database
+      # if true session user_id = id 
+      # enable sessions
       end
 
 # signup page brings up form
@@ -82,6 +91,9 @@ module Forum
       post "/new" do 
         topic_name = params["topic_name"]
         content = params["content"]
+        session["user_id"] = params["user_id"]
+
+
 
        if ENV["RACK_ENV"] == 'production'
           conn = PG.connect(
@@ -94,9 +106,11 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-          conn.exec_params( "INSERT INTO posts(topic_name, content) VALUES ($1, $2)",
-          [topic_name, content]
+          conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
+          [topic_name, content, user_id]
           )
+
+          # insert into statement user id from session 
 
         @new_post = true
         erb :post
