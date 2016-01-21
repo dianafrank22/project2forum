@@ -83,7 +83,7 @@ module Forum
         )
 
         @new_post = true
-        erb :index
+        redirect "/"
        end
 
       # VIEW POST PAGE
