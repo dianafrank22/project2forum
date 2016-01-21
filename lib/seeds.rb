@@ -11,16 +11,7 @@ else
 conn = PG.connect(dbname: "project2")
 end 
 
-# creates table for categories
 
-conn.exec("DROP TABLE IF EXISTS categories")
-
-conn.exec("CREATE TABLE categories(
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
-   	number_of_posts INT
-  )"
-)
 
 
 # creates user table
@@ -41,7 +32,6 @@ conn.exec("DROP TABLE IF EXISTS posts")
 conn.exec("CREATE TABLE posts(
     id SERIAL PRIMARY KEY,
     topic_name VARCHAR(255),
-   	category_id INT REFERENCES categories(id),
    	comments INT,
    	votes INT,
    	content VARCHAR,

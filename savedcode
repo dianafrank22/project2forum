@@ -37,17 +37,6 @@ Statements in server file
 
 
 
-inserting new data into table
-    post "/superheroes/" do
-      db = database_connection
-      real_name = params["real_name"]
-      hero_name = params["hero_name"]
-      super_power = params["super_power"]
-
-      @b = db.exec("INSERT INTO #{table} (real_name, hero_name, super_power) VALUES ('#{real_name}', '#{hero_name}', '#{super_power}')")
-
-      "Superhero created!"
-    end
 
 
 
@@ -97,19 +86,7 @@ class LoginServer < Sinatra::Base
     redirect "/signup"
   end
 
-  get "/signup" do 
-    erb :signup
-  end
-
-  post "/signup" do 
-    encrypted_password = BCrypt::Password.create(params[:login_password])
-    users = @@db.exec_params(<<-SQL, [params[:login_name],encrypted_password]) 
-      INSERT INTO users (login_name, login_password_digest) VALUES ($1, $2) RETURNING id;
-      SQL
-
-    session["user_id"] = users.first["id"]
-    erb :signup_success
-  end
+  
 
 
 # authenticating users 
@@ -139,22 +116,32 @@ class LoginServer < Sinatra::Base
 end
 
 
-login form 
+# # view a list of categories
+#     get "/categories" do
+#       @categories = db.exec("SELECT * FROM categories")
+#     erb :categories
+#     end
 
-<h1>Log In</h1>
-
-<form method="post" action="/login">
-<input type = "text" name = "login_name">
-<input type = "password" name= "login_password">
-<input type = "submit" value= "Log In">
-</form>
+# # view a list of posts in that category
+#     get "/category/:id" do
+#       @category = db.exec("SELECT topic_name FROM posts WHERE category_id = #{params["id"].to_i}").first
+#     erb :category
+#     end 
 
 
-signup form
-<h1>Sign Up!</h1>
 
-<form method="post" action="/signup">
-<input type = "text" name = "login_name">
-<input type = "password" name= "login_password">
-<input type = "submit" value= "Sign Up">
-</form>
+from layout file
+        <li><a href="/categories">Categories</a></li>
+
+
+from seeds file
+# creates table for categories
+
+# conn.exec("DROP TABLE IF EXISTS categories")
+
+# conn.exec("CREATE TABLE categories(
+#     id SERIAL PRIMARY KEY,
+#     name VARCHAR(255),
+#     number_of_posts INT
+#   )"
+# )

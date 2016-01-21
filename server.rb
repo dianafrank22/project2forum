@@ -16,9 +16,9 @@ module Forum
    			erb :login
   		end
 
-  		post "/login" do 
-  			redirect('/')
-      end
+  		# post "/login" do 
+     
+    #   end
 
 # signup page brings up form
   		get "/signup" do 
@@ -60,17 +60,6 @@ module Forum
 
 
 
-# view a list of categories
-		get "/categories" do
-      @categories = db.exec("SELECT * FROM categories")
-		erb :categories
-		end
-
-# view a list of posts in that category
-		get "/category/:id" do
-      @category = db.exec("SELECT topic_name FROM posts WHERE category_id = #{params["id"].to_i}").first
-		erb :category
-		end 
 
 
 
