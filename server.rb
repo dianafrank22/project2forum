@@ -18,9 +18,9 @@ module Forum
    			erb :login
   		end
 
-  	post "/login" do 
-     erb :index
-      end
+  	# post "/login" do 
+   #   erb :index
+   #    end
 
 
       # compare given information to database
