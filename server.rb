@@ -52,7 +52,7 @@ module Forum
         end
 
          conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
-         [username, password]
+         [username, encyrpted_password]
         )
 
         @signup_info = true
