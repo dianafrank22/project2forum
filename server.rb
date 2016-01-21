@@ -27,9 +27,10 @@ module Forum
 
   		post "/signup" do 
         encrypted_password = BCrypt::Password.create([:password])
-        username = params[:username]
-        newuser = db.exec_params("INSERT INTO users (username, encrypted_password) VALUES ($1, $2)");
-        erb :index
+        
+      users = @@db.exec_params(<<-SQL, [params[:username],encrypted_password]) 
+      INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;
+      SQL
       end
 
 
