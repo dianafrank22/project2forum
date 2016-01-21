@@ -37,7 +37,7 @@ module Forum
 # try and encrypt password with bcrypt later! 
   		post "/signup" do 
         username = params["username"]
-        encrypted_password = BCrypt::Password.create(params[:password])
+        password = params["password"]
     
   
         if ENV["RACK_ENV"] == 'production'
@@ -51,7 +51,7 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-         conn.exec_params( "INSERT INTO users(username, encrypted_password) VALUES ($1, $2)",
+         conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
          [username, password]
         )
 
