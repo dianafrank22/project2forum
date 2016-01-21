@@ -37,7 +37,7 @@ module Forum
 # try and encrypt password with bcrypt later! 
   		post "/signup" do 
         username = params["username"]
-        encrypted_password = BCrypt::Password.create(params["password"])
+        encrypted_password = BCrypt::Password.create(params[:password])
     
   
         if ENV["RACK_ENV"] == 'production'
