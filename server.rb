@@ -16,9 +16,29 @@ module Forum
    			erb :login
   		end
 
-  		# post "/login" do 
-     
-    #   end
+  		post "/login" do 
+        username = params["username"]
+        password = params["password"]
+    
+  
+        if ENV["RACK_ENV"] == 'production'
+          conn = PG.connect(
+          dbname: ENV["POSTGRES_DB"],
+          host: ENV["POSTGRES_HOST"],
+          password: ENV["POSTGRES_PASS"],
+          user: ENV["POSTGRES_USER"]
+          )
+        else
+         conn = PG.connect(dbname: "project2")
+        end
+
+      conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
+      [username, password]
+      )
+
+      @login_info = true
+      erb :index
+      end
 
 # signup page brings up form
   		get "/signup" do 
@@ -59,7 +79,10 @@ module Forum
       end
 
 
+      post "/new" do 
 
+        erb :post
+      end
 
 
 
