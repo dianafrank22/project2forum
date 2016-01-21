@@ -145,3 +145,12 @@ from seeds file
 #     number_of_posts INT
 #   )"
 # )
+
+
+
+from posts table
+
+    comments INT,
+    votes INT,
+    content VARCHAR,
+    user_id INT REFERENCES users(id)
