@@ -26,9 +26,9 @@ module Forum
 		end
 
 # login page
-		# get "/login" do
-  #  			erb :login
-  # 		end
+		get "/login" do
+   			erb :login
+  		end
 
   # 	post "/login" do 
   #      @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
