@@ -85,38 +85,38 @@ module Forum
 
 
 # new post page
-      get "/new" do
-      	erb :newpost
-      end
+      # get "/new" do
+      # 	erb :newpost
+      # end
 
 
-      post "/new" do 
-        topic_name = params["topic_name"]
-        content = params["content"]
-        session["user_id"] = params["user_id"]
+      # post "/new" do 
+      #   topic_name = params["topic_name"]
+      #   content = params["content"]
+      #   session["user_id"] = params["user_id"]
 
 
 
-       if ENV["RACK_ENV"] == 'production'
-          conn = PG.connect(
-          dbname: ENV["POSTGRES_DB"],
-          host: ENV["POSTGRES_HOST"],
-          password: ENV["POSTGRES_PASS"],
-          user: ENV["POSTGRES_USER"]
-          )
-        else
-         conn = PG.connect(dbname: "project2")
-        end
+      #  if ENV["RACK_ENV"] == 'production'
+      #     conn = PG.connect(
+      #     dbname: ENV["POSTGRES_DB"],
+      #     host: ENV["POSTGRES_HOST"],
+      #     password: ENV["POSTGRES_PASS"],
+      #     user: ENV["POSTGRES_USER"]
+      #     )
+      #   else
+      #    conn = PG.connect(dbname: "project2")
+      #   end
 
-        conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
-        [topic_name, content, user_id]
-        )
+      #   conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
+      #   [topic_name, content, user_id]
+      #   )
 
-          # insert into statement user id from session 
+      #     # insert into statement user id from session 
 
-        @new_post = true
-        erb :post
-       end
+      #   @new_post = true
+      #   erb :post
+      #  end
 
 
 
