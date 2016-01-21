@@ -4,21 +4,20 @@ require "bcrypt"
 
 module Forum
 	class Server < Sinatra::Base
-
     enable :sessions
 
-    @@db = PG.connect(dbname: "project2")
+
 
 # checks to see if user is logged in
-      def current_user 
-        if session["user_id"]
-          @user ||= @@db.exec_params(<<-SQL, [session["user_id"]]).first
-            SELECT * FROM users WHERE id= $1
-          SQL
-        else
-          {}
-        end
-      end
+      # def current_user 
+      #   if session["user_id"]
+      #     @user ||= @@db.exec_params(<<-SQL, [session["user_id"]]).first
+      #       SELECT * FROM users WHERE id= $1
+      #     SQL
+      #   else
+      #     {}
+      #   end
+      # end
 
  
 # homepage
@@ -27,23 +26,22 @@ module Forum
 		end
 
 # login page
-		get "/login" do
-   			erb :login
-  		end
+		# get "/login" do
+  #  			erb :login
+  # 		end
 
-  	post "/login" do 
-       @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
-         if @user 
-            if @user["password"] = params[:password]
-              session["user_id"] = @user["id"]
-              redirect "/"
-            else
-              erb :login
-            end
-          else
-            erb :login
-          end
-      end
+  # 	post "/login" do 
+  #      @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
+  #        if @user 
+  #           if @user["password"] = params[:password]
+  #             redirect "/"
+  #           else
+  #             erb :login
+  #           end
+  #         else
+  #           erb :login
+  #         end
+  #     end
 
 
       # compare given information to database
@@ -60,7 +58,7 @@ module Forum
 # try and encrypt password with bcrypt later! 
   		post "/signup" do 
         username = params["username"]
-        password = params["password"]
+        encrypted_password = BCrypt::Password.create(params[:password])
     
   
         if ENV["RACK_ENV"] == 'production'
@@ -74,7 +72,7 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-         conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
+         conn.exec_params( "INSERT INTO users(username, encrypted_password) VALUES ($1, $2)",
          [username, password]
         )
 
