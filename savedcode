@@ -144,7 +144,52 @@ from seeds file
 #     name VARCHAR(255),
 #     number_of_posts INT
 #   )"
+
 # )
 
+# new post page
+      # get "/new" do
+      #   erb :newpost
+      # end
 
+
+      # post "/new" do 
+      #   topic_name = params["topic_name"]
+      #   content = params["content"]
+      #   session["user_id"] = params["user_id"]
+
+
+
+      #  if ENV["RACK_ENV"] == 'production'
+      #     conn = PG.connect(
+      #     dbname: ENV["POSTGRES_DB"],
+      #     host: ENV["POSTGRES_HOST"],
+      #     password: ENV["POSTGRES_PASS"],
+      #     user: ENV["POSTGRES_USER"]
+      #     )
+      #   else
+      #    conn = PG.connect(dbname: "project2")
+      #   end
+
+      #   conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
+      #   [topic_name, content, user_id]
+      #   )
+
+      #     # insert into statement user id from session 
+
+      #   @new_post = true
+      #   erb :post
+      #  end
+
+
+# checks to see if user is logged in
+      # def current_user 
+      #   if session["user_id"]
+      #     @user ||= @@db.exec_params(<<-SQL, [session["user_id"]]).first
+      #       SELECT * FROM users WHERE id= $1
+      #     SQL
+      #   else
+      #     {}
+      #   end
+      # end
 
