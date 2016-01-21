@@ -51,7 +51,7 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-         conn.exec_params( "INSERT INTO users(username, encrypted_password) VALUES ($1, $2)",
+         conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
          [username, password]
         )
 
