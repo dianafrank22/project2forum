@@ -98,7 +98,7 @@ module Forum
       [topic_name, content]
       )
 
-      @signup_info = true
+      @new_post = true
 
         erb :post
       end
