@@ -81,7 +81,7 @@ module Forum
 
       post "/new" do 
         topic_name = params["topic_name"]
-        content = params["comments"]
+        content = params["content"]
 
        if ENV["RACK_ENV"] == 'production'
           conn = PG.connect(
