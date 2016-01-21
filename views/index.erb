@@ -8,17 +8,19 @@
 </head>
 <body>
 
-<div class = "toptitle">
-     <h1> Top Posts</h1>
- </div>
-
    <div class="row">
 		<div class="six columns">
-  			<p>here are the top posts</p>
+  		<h1>Top Posts</h1>
 
-        <%= "SELECT * FROM posts" %>
+      <% @post.each do |post|%>
+      <a href = "/post/<%="#{post['id']}"%>">
+      <%= "#{post["topic_name"]}"%>
+      </a>
+      <% end %>
 
-  		</div>
+
+     
+
     	<div class="six columns">
 			<button type="button"><a href="/new">New Post</a></button>
 		</div>

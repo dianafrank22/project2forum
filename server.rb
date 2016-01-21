@@ -18,6 +18,7 @@ module Forum
 
     # homepage
 		get "/" do
+      @post = conn.exec("SELECT * FROM posts")
 		  erb :index
 		end
 
@@ -81,13 +82,20 @@ module Forum
         [topic_name, content, user_id]
         )
 
-          # insert into statement user id from session 
-
         @new_post = true
         erb :index
        end
 
-    private
+      # VIEW POST PAGE
+      get "/post/:id" do
+        @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+        erb :post 
+       end
+
+
+
+
+  private
 
     def conn
       if ENV["RACK_ENV"] == 'production'
@@ -102,4 +110,6 @@ module Forum
       end
     end
   end
+
+
 end
