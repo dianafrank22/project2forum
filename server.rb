@@ -23,7 +23,7 @@ module Forum
  
 # homepage
 		get "/" do
-		erb :index
+		  erb :index
 		end
 
 # login page
@@ -31,23 +31,25 @@ module Forum
    			erb :login
   		end
 
-  		post "/login" do 
+  	post "/login" do 
        @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
          if @user 
             if @user["password"] = params[:password]
               session["user_id"] = @user["id"]
               redirect "/"
             else
-              erb: login
+              erb :login
             end
+          else
+            erb :login
           end
-        end
+      end
 
 
       # compare given information to database
       # if true session user_id = id 
       # enable sessions
-      end
+      
 
 # signup page brings up form
   		get "/signup" do 
@@ -57,8 +59,8 @@ module Forum
 # sends form data to data base and creates a new user
 # try and encrypt password with bcrypt later! 
   		post "/signup" do 
-      username = params["username"]
-      password = params["password"]
+        username = params["username"]
+        password = params["password"]
     
   
         if ENV["RACK_ENV"] == 'production'
@@ -72,13 +74,13 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-      conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
-      [username, password]
-      )
+         conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
+         [username, password]
+        )
 
-      @signup_info = true
-      erb :index
-    end
+        @signup_info = true
+        erb :index
+      end
 
 
 
@@ -106,15 +108,15 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-          conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
-          [topic_name, content, user_id]
-          )
+        conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
+        [topic_name, content, user_id]
+        )
 
           # insert into statement user id from session 
 
         @new_post = true
         erb :post
-      end
+       end
 
 
 
@@ -122,5 +124,6 @@ module Forum
       PG.connect(dbname: "project2")
     end
 
-	end
+	
+end
 end
