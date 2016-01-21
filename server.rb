@@ -94,12 +94,11 @@ module Forum
          conn = PG.connect(dbname: "project2")
         end
 
-      conn.exec_params( "INSERT INTO posts(topic_name, content) VALUES ($1, $2)",
-      [topic_name, content]
-      )
+          conn.exec_params( "INSERT INTO posts(topic_name, content) VALUES ($1, $2)",
+          [topic_name, content]
+          )
 
-      @new_post = true
-
+        @new_post = true
         erb :post
       end
 

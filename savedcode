@@ -148,9 +148,3 @@ from seeds file
 
 
 
-from posts table
-
-    comments INT,
-    votes INT,
-    content VARCHAR,
-    user_id INT REFERENCES users(id)
