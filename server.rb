@@ -80,6 +80,25 @@ module Forum
 
 
       post "/new" do 
+        topic_name = params["topic_name"]
+        content = params["comments"]
+
+       if ENV["RACK_ENV"] == 'production'
+          conn = PG.connect(
+          dbname: ENV["POSTGRES_DB"],
+          host: ENV["POSTGRES_HOST"],
+          password: ENV["POSTGRES_PASS"],
+          user: ENV["POSTGRES_USER"]
+          )
+        else
+         conn = PG.connect(dbname: "project2")
+        end
+
+      conn.exec_params( "INSERT INTO posts(topic_name, content) VALUES ($1, $2)",
+      [topic_name, content]
+      )
+
+      @signup_info = true
 
         erb :post
       end
