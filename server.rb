@@ -28,7 +28,7 @@ module Forum
 # sends form data to data base and creates a new user
   		post "/signup" do 
       username = params["username"]
-      password = params["password"]
+      encrypted_password = BCrypt::Password.create(params["password"])
     
   
         if ENV["RACK_ENV"] == 'production'
