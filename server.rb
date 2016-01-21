@@ -1,6 +1,7 @@
 require "sinatra/base"
 require "pg"
 require "bcrypt"
+require 'pry'
 
 module Forum
 	class Server < Sinatra::Base
@@ -32,9 +33,9 @@ module Forum
   		end
 
  post "/login" do
-    @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
+    @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params["username"]]).first
     if @user
-      if @user["password"] == params[:password]
+      if @user["password"] == params["password"]
         session["user_id"] = @user["id"]
         redirect "/"
       else
@@ -81,6 +82,40 @@ module Forum
         @signup_info = true
         erb :index
       end
+
+# new post page
+      get "/new" do
+        erb :newpost
+      end
+
+
+      post "/new" do 
+        topic_name = params["topic_name"]
+        content = params["content"]
+        user_id = session["user_id"]
+
+        binding.pry
+       
+         if ENV["RACK_ENV"] == 'production'
+            conn = PG.connect(
+            dbname: ENV["POSTGRES_DB"],
+            host: ENV["POSTGRES_HOST"],
+            password: ENV["POSTGRES_PASS"],
+            user: ENV["POSTGRES_USER"]
+            )
+          else
+           conn = PG.connect(dbname: "project2")
+          end
+
+        conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
+        [topic_name, content, user_id]
+        )
+
+          # insert into statement user id from session 
+
+        @new_post = true
+        erb :index
+       end
 
 
 

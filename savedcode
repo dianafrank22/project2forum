@@ -62,58 +62,11 @@ showing only items with that category
 
 
 
-login/signup in server file
-
-class LoginServer < Sinatra::Base
-
-  enable :sessions
-
-  @@db = PG.connect(dbname: "login_magnum")
-
-  def current_user 
-    if session ["user_id"]
-      # the user is logged in
-      @users ||= @@db.exec_params(<<-SQL,[session["user_id"]])
-      SELECT * FROM users WHERE id = $1
-      SQL
-    else 
-      # the user is not logged in
-      {}
-    end
-  end
-
-  get "/" do 
-    redirect "/signup"
-  end
 
   
 
 
-# authenticating users 
 
-  get '/login' do
-    erb :login
-  end
-
-  post '/login' do
-    users = @@db.exec_params(<<-SQL, [params[:login_name]])
-      SELECT * FROM users WHERE login_name = $1
-    SQL
-
-    if @user  
-        if BCrypt::Password.new(@user["login_password_digest"]) == params[:login_password]
-        session["user_id"] = @user["id"]
-        erb :login_success
-    else 
-      @error = "Invalid Password"
-      erb :login
-    end 
-    else 
-      @error = "Invalid Username"
-      erb :login 
-    end
-  end
-end
 
 
 # # view a list of categories
