@@ -5,7 +5,20 @@ require "bcrypt"
 module Forum
 	class Server < Sinatra::Base
 
+    enable :sessions
 
+    @@db = PG.connect(dbname: "project2")
+
+      def current_user
+        if session["user_id"]
+          @user ||= @@db.exec_params(<<-SQL, [session["user_id"]]).first
+            SELECT * FROM users WHERE id = $1
+          SQL
+        else
+          # THE USER IS NOT LOGGED IN
+          {}
+        end
+      end
 
  
 # homepage
@@ -18,9 +31,19 @@ module Forum
    			erb :login
   		end
 
-  	# post "/login" do 
-   #   erb :index
-   #    end
+ post "/login" do
+    @user = @@db.exec_params("SELECT * FROM users WHERE username = $1", [params[:username]]).first
+    if @user
+      if @user["password"] == params[:password]
+        session["user_id"] = @user["id"]
+        redirect "/"
+      else
+        erb :login
+      end
+    else
+      erb :login
+    end
+  end
 
 
       # compare given information to database
