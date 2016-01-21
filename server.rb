@@ -20,50 +20,44 @@ module Forum
   			redirect('/')
       end
 
-# signup page
+# signup page brings up form
   		get "/signup" do 
   			erb :signup
   		end
 
+# sends form data to data base and creates a new user
   		post "/signup" do 
-        encrypted_password = BCrypt::Password.create([:password])
-        
-      users = @@db.exec_params(<<-SQL, [params[:username],encrypted_password]) 
-      INSERT INTO users (username, password) VALUES ($1, $2) RETURNING id;
-      SQL
-      end
+      username = params["username"]
+      password = params["password"]
+    
+  
+        if ENV["RACK_ENV"] == 'production'
+          conn = PG.connect(
+          dbname: ENV["POSTGRES_DB"],
+          host: ENV["POSTGRES_HOST"],
+          password: ENV["POSTGRES_PASS"],
+          user: ENV["POSTGRES_USER"]
+          )
+        else
+         conn = PG.connect(dbname: "project2")
+        end
+
+      conn.exec_params( "INSERT INTO users(username, password) VALUES ($1, $2)",
+      [username, password]
+      )
+
+      @signup_info = true
+      erb :index
+    end
 
 
-# user page
-		# get "/user/:id"
-		# params [:id]
-		# erb :user
-		# end
 
 # new post page
       get "/new" do
       	erb :newpost
       end
 
-      # post "/new" do
 
-      #   redirects('/post/:id')
-      # end
-
-# viewing the post
-	   # 	get "/post/:id" do
-    #     @id = db.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-	   #   	erb :post
-		  # end
-
-# # adding a comment
-    #  get "/comment" do
-      # erb :comment
-    # end
-
-	   # post "/comment" do
-       # redirect? 
-    # end
 
 # view a list of categories
 		get "/categories" do

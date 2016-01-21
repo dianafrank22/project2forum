@@ -1,0 +1,160 @@
+Statements in server file
+
+
+
+# user page
+		# get "/user/:id"
+		# params [:id]
+		# erb :user
+		# end
+
+     	# post "/new" do
+
+      #   redirects('/post/:id')
+      # end
+
+# viewing the post
+	   # 	get "/post/:id" do
+    #     @id = db.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+	   #   	erb :post
+		  # end
+
+# # adding a comment
+    #  get "/comment" do
+      # erb :comment
+    # end
+
+	   # post "/comment" do
+       # redirect? 
+    # end
+
+
+# for category.erb 
+# <% @category.each do |post| %>
+# 		<a href = "/post/<%="#{post['id']}"%>">
+# 			<%= "#{post["topic_name"]}"%>
+# 		</a>
+
+
+
+inserting new data into table
+    post "/superheroes/" do
+      db = database_connection
+      real_name = params["real_name"]
+      hero_name = params["hero_name"]
+      super_power = params["super_power"]
+
+      @b = db.exec("INSERT INTO #{table} (real_name, hero_name, super_power) VALUES ('#{real_name}', '#{hero_name}', '#{super_power}')")
+
+      "Superhero created!"
+    end
+
+
+
+showing only items with that category 
+
+  get "/house/:id" do 
+      @houseid = params[:id]
+      @house = db.exec_params("SELECT * FROM houses WHERE id = #{params["id"].to_i}").first
+      @students = db.exec_params("SELECT * FROM students WHERE house_id = #{@houseid}").to_a
+      erb :house 
+    end
+
+    in erb file
+    <div class = roster>
+<% @students.each do |student| %>
+  <div class = student>
+  <h1> <%= "#{student['fname']} #{student['lname']}"%></h1>
+
+  <img src = <%= "#{student['image']}" %> />
+  </div>
+
+<% end %>
+
+
+
+login/signup in server file
+
+class LoginServer < Sinatra::Base
+
+  enable :sessions
+
+  @@db = PG.connect(dbname: "login_magnum")
+
+  def current_user 
+    if session ["user_id"]
+      # the user is logged in
+      @users ||= @@db.exec_params(<<-SQL,[session["user_id"]])
+      SELECT * FROM users WHERE id = $1
+      SQL
+    else 
+      # the user is not logged in
+      {}
+    end
+  end
+
+  get "/" do 
+    redirect "/signup"
+  end
+
+  get "/signup" do 
+    erb :signup
+  end
+
+  post "/signup" do 
+    encrypted_password = BCrypt::Password.create(params[:login_password])
+    users = @@db.exec_params(<<-SQL, [params[:login_name],encrypted_password]) 
+      INSERT INTO users (login_name, login_password_digest) VALUES ($1, $2) RETURNING id;
+      SQL
+
+    session["user_id"] = users.first["id"]
+    erb :signup_success
+  end
+
+
+# authenticating users 
+
+  get '/login' do
+    erb :login
+  end
+
+  post '/login' do
+    users = @@db.exec_params(<<-SQL, [params[:login_name]])
+      SELECT * FROM users WHERE login_name = $1
+    SQL
+
+    if @user  
+        if BCrypt::Password.new(@user["login_password_digest"]) == params[:login_password]
+        session["user_id"] = @user["id"]
+        erb :login_success
+    else 
+      @error = "Invalid Password"
+      erb :login
+    end 
+    else 
+      @error = "Invalid Username"
+      erb :login 
+    end
+  end
+end
+
+
+login form 
+
+<h1>Log In</h1>
+
+<form method="post" action="/login">
+<input type = "text" name = "login_name">
+<input type = "password" name= "login_password">
+<input type = "submit" value= "Log In">
+</form>
+
+
+signup form
+<h1>Sign Up!</h1>
+
+<form method="post" action="/signup">
+<input type = "text" name = "login_name">
+<input type = "password" name= "login_password">
+<input type = "submit" value= "Sign Up">
+</form>
