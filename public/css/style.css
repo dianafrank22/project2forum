@@ -88,8 +88,8 @@ textarea.u-full-width {
   padding: 6px;
 }
 
-/*adding arrows for voting*/
-.arrow-up {
+/*adding arrow for voting*/
+#arrow {
   width: 0; 
   height: 0; 
   border-left: 8px solid transparent;
@@ -98,5 +98,22 @@ textarea.u-full-width {
   margin-left: 10px;
   margin-bottom: 5px;
   display: inline-block;
+}
+
+.voted {
+  width: 0; 
+  height: 0; 
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent; 
+  border-bottom: 8px rgb(16,127,195);
+  margin-left: 10px;
+  margin-bottom: 5px;
+  display: inline-block;
+  box-shadow: 0 0 5px rgba(16,127,195,.8);
+}
+
+.votes {
+  margin-top: 6px;
+  margin-left: -3px;
 }
 

@@ -89,6 +89,7 @@ module Forum
       # VIEW POST PAGE
       get "/:id" do
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+         @comment = conn.exec_params("SELECT * FROM comments where post_id = #{params["id"].to_i}")
         erb :post 
        end
 

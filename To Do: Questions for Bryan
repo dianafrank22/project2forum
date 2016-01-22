@@ -1,13 +1,19 @@
 To Do/ Questions for Bryan
 
-- on sign up page, updates database, but brings user to internal server error page
-
-- comment page not showing the layout.erb
-
-- logic for comments, check it 
-	-content & post id not being updated
+- sign up form and commment forms, update database, but brings user to internal server error page 
 	-display comments on post page
-	- update comments value in posts table
+
+
+<div class = "ten columns">
+
+	 <% @comments.each do |comment|%>
+             <div class = "post_comments">
+
+                  <%= "#{comment["content"]}"%>
+    
+           <% end %>
+	</div>
+
 
 - updating the votes on a click function (what is the psql logic)
  	- add up arrow with click function
@@ -17,3 +23,4 @@ To Do/ Questions for Bryan
 
 -password encryption
 
+-change it from log in to user name
