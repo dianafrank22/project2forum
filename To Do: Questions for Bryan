@@ -1,0 +1,19 @@
+To Do/ Questions for Bryan
+
+- on sign up page, updates database, but brings user to internal server error page
+
+- comment page not showing the layout.erb
+
+- logic for comments, check it 
+	-content & post id not being updated
+	-display comments on post page
+	- update comments value in posts table
+
+- updating the votes on a click function (what is the psql logic)
+ 	- add up arrow with click function
+    - when clicked, changes color (stays that color so you know you've clicked it) and increases the vote # in data base by one
+ 	- if you unclick it i.e. click it again, it takes that vote away
+ 	-next to each post, put an image of an arrow. in js file, write click function that changes its color (ask bryan about logic to increase number of votes for that post )
+
+-password encryption
+

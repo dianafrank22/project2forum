@@ -15,10 +15,14 @@
   		  <h1 class ="top-title">Top Posts</h1>
            <% @post.each do |post|%>
              <div class = "top_posts">
-              <a href = "/<%="#{post['id']}"%>">
-                 <%= "#{post["topic_name"]}"%>
-             </a>
-             </div>
+
+                  <a href = "/<%="#{post['id']}"%>">
+                  <%= "#{post["topic_name"]}"%>
+                  </a>
+                                 
+                  <div class="arrow-up">
+                  </div>   
+          
            <% end %>
       </div>    
     </div>

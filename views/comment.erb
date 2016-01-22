@@ -4,25 +4,36 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title>Comment</title>
-	  <link rel="stylesheet" href="css/style.css">
-  <link href="css/normalize.css" rel="stylesheet" type="text/css">
-   <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+	  <link rel="stylesheet" href="/css/style.css">
+  <link href="/css/normalize.css" rel="stylesheet" type="text/css">
+   <link href="/css/skeleton.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div class = "new_comment">
-		<h1 class = "new-comment"> New Post </h1>
-
-	<form class = "new" action="/<%="#{@post['id']}"%>/comment" method="post"> 
-  
-  		<label for="content">Comment:</label>
-  		<textarea class="u-full-width" placeholder="Put your comment here....">	
-  		</textarea>
- 
-  		<input class="button-primary" type="submit" value="Add Comment">
-	</form>
 
 
-	</div>
+    <div class = "new_comment">
+      <h1> New Comment </h1>
+      <% if @new_comment%>
+        <p> Comment Posted </p>
+      <%else%>
+      <form class = "new-comment" action="/<%="#{@post['id']}"%>/comment" method="post"> 
+
+
+        <div class = "input-row">
+        <label for="content">Content: </label>
+        <textarea name="content"></textarea>
+        </div>
+
+        <div class = "input-row">
+        <input type ="submit" value="Create New Comment"/>
+        </div>
+
+      </form>
+      <% end %>
+
+      </div>
+
+	
 </body>
 </html>
 <!-- need a form form for comments, redirects back to post page  -->

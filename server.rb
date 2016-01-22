@@ -89,7 +89,6 @@ module Forum
       # VIEW POST PAGE
       get "/:id" do
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-        # where user_id in post equals id in users
         erb :post 
        end
 
@@ -102,15 +101,16 @@ module Forum
       # post new comment 
       post "/:id/comment" do 
         content = params["content"]
-        post_id = conn.exec_params("SELECT * FROM posts where id = #{params["id"].to_i}").first
+        post_id = params["id"].to_i
         user_id = session["user_id"]
 
+        binding.pry
         conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
         [content, post_id, user_id]
         )
 
         @new_comment = true
-        erb :post
+        erb :index
       end
 
 
