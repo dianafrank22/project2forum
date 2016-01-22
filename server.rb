@@ -103,7 +103,7 @@ module Forum
       post "/:id/comment" do 
         content = params["content"]
         post_id = conn.exec_params("SELECT * FROM posts where id = #{params["id"].to_i}").first
-        user_id = sessions["user_id"]
+        user_id = session["user_id"]
 
         conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
         [content, post_id, user_id]
