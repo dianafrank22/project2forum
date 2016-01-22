@@ -40,25 +40,24 @@ Statements in server file
 
 
 
-showing only items with that category 
+show only comments with that post id? 
 
-  get "/house/:id" do 
-      @houseid = params[:id]
-      @house = db.exec_params("SELECT * FROM houses WHERE id = #{params["id"].to_i}").first
-      @students = db.exec_params("SELECT * FROM students WHERE house_id = #{@houseid}").to_a
-      erb :house 
-    end
 
-    in erb file
-    <div class = roster>
-<% @students.each do |student| %>
-  <div class = student>
-  <h1> <%= "#{student['fname']} #{student['lname']}"%></h1>
+ get "/:id" do
+         @postid = params[:id]
+         @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+         @comment = conn.exec_params("SELECT * FROM comments where post_id = #{@postid}")
+         binding.pry
+        erb :post 
+       end
 
-  <img src = <%= "#{student['image']}" %> />
+  <div class = "ten columns">
+    <% @comments.each do |comment|%>
+      <div class = comment>
+       <p>  <%= "#{comment["content"]}"%></p>
+      </div>
+    <% end %>
   </div>
-
-<% end %>
 
 
 
@@ -69,80 +68,6 @@ showing only items with that category
 
 
 
-# # view a list of categories
-#     get "/categories" do
-#       @categories = db.exec("SELECT * FROM categories")
-#     erb :categories
-#     end
-
-# # view a list of posts in that category
-#     get "/category/:id" do
-#       @category = db.exec("SELECT topic_name FROM posts WHERE category_id = #{params["id"].to_i}").first
-#     erb :category
-#     end 
 
 
-
-from layout file
-        <li><a href="/categories">Categories</a></li>
-
-
-from seeds file
-# creates table for categories
-
-# conn.exec("DROP TABLE IF EXISTS categories")
-
-# conn.exec("CREATE TABLE categories(
-#     id SERIAL PRIMARY KEY,
-#     name VARCHAR(255),
-#     number_of_posts INT
-#   )"
-
-# )
-
-# new post page
-      # get "/new" do
-      #   erb :newpost
-      # end
-
-
-      # post "/new" do 
-      #   topic_name = params["topic_name"]
-      #   content = params["content"]
-      #   session["user_id"] = params["user_id"]
-
-
-
-      #  if ENV["RACK_ENV"] == 'production'
-      #     conn = PG.connect(
-      #     dbname: ENV["POSTGRES_DB"],
-      #     host: ENV["POSTGRES_HOST"],
-      #     password: ENV["POSTGRES_PASS"],
-      #     user: ENV["POSTGRES_USER"]
-      #     )
-      #   else
-      #    conn = PG.connect(dbname: "project2")
-      #   end
-
-      #   conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
-      #   [topic_name, content, user_id]
-      #   )
-
-      #     # insert into statement user id from session 
-
-      #   @new_post = true
-      #   erb :post
-      #  end
-
-
-# checks to see if user is logged in
-      # def current_user 
-      #   if session["user_id"]
-      #     @user ||= @@db.exec_params(<<-SQL, [session["user_id"]]).first
-      #       SELECT * FROM users WHERE id= $1
-      #     SQL
-      #   else
-      #     {}
-      #   end
-      # end
 

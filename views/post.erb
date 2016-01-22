@@ -10,20 +10,40 @@
 
 <div class = "post-display">
 <div class = "row">
-	<div class = "eleven columns">
+	
+	<div class = "eight columns">
 		<h1> <%= "#{@post["topic_name"]}" %> </h1>
 
 	</div>
+
+	<div class = "two columns">
+		<div class="vote_up">
+			<a href="/<%="#{@post['id']}"%>/vote/up"><button type="button">Vote Up</button></a>
+		</div>
+	</div>
+
+	<div class = "two columns">
+		<div class="vote_down">
+			<a href="/<%="#{@post['id']}"%>/vote/down"><button type="button">Vote Down</button></a>
+		</div>
+	</div>
+
+
 
 	<div class = "ten columns">
 	<p> <%= "#{@post["content"]}"%> </p>
 	</div>
 
 	<div class = "four columns">
-
-	<div class="comment_button">
-		<a href="/<%="#{@post['id']}"%>/comment"><button type="button">Add Comment</button></a>
+		<div class="comment_button">
+			<a href="/<%="#{@post['id']}"%>/comment"><button type="button">Add Comment</button></a>
+		</div>
 	</div>
+
+
+
+
+
 
 
 

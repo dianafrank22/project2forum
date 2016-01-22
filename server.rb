@@ -18,10 +18,12 @@ module Forum
 
     # homepage
 		get "/" do
-      @post = conn.exec("SELECT * FROM posts")
+      @post = conn.exec("SELECT * FROM posts ORDER BY votes DESC")
       @user = conn.exec("SELECT * FROM users")
 		  erb :index
 		end
+
+ 
 
     # login page
 		get "/login" do
@@ -89,7 +91,6 @@ module Forum
       # VIEW POST PAGE
       get "/:id" do
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-         @comment = conn.exec_params("SELECT * FROM comments where post_id = #{params["id"].to_i}")
         erb :post 
        end
 
@@ -104,14 +105,24 @@ module Forum
         content = params["content"]
         post_id = params["id"].to_i
         user_id = session["user_id"]
-
-        binding.pry
         conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
         [content, post_id, user_id]
         )
 
         @new_comment = true
         erb :index
+      end
+
+      # changing votes
+      get "/:id/vote/up" do 
+
+        conn.exec_params( "UPDATE posts SET votes = votes + 1 WHERE id = #{params["id"].to_i}")
+       redirect back 
+      end
+
+      get "/:id/vote/down" do
+        conn.exec_params( "UPDATE posts SET votes = votes - 1 WHERE id = #{params["id"].to_i}")
+      redirect back  
       end
 
 
