@@ -64,7 +64,6 @@ module Forum
            [username, password]
          )
 
-        @signup_info = true
         erb :index
       end
 
