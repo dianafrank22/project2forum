@@ -64,6 +64,10 @@ h1.top-title {
 
 
 /*new post css*/
+.new-post {
+ margin-top: 30px;
+}
+
 .new_post_button {
   margin: 20px;
   margin-top: 58px;

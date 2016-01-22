@@ -82,8 +82,6 @@ module Forum
         conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
         [topic_name, content, user_id]
         )
-
-        @new_post = true
         redirect "/"
        end
 
@@ -96,13 +94,20 @@ module Forum
 
       # create new comment
        get "/:id/comment" do
-
+         @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
         erb :comment
        end
 
       # post new comment 
-      post "/post/:id/comment" do 
-        
+      post "/:id/comment" do 
+        content = params["content"]
+        post_id = conn.exec_params("SELECT * FROM posts where id = #{params["id"].to_i}").first
+        user_id = sessions["user_id"]
+
+        conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
+        [content, post_id, user_id]
+        )
+        erb :post
       end
 
 

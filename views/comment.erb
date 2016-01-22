@@ -9,7 +9,21 @@
    <link href="css/skeleton.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	
+	<div class = "new_comment">
+<h1 class = "new-comment"> New Post </h1>
+
+<form class = "new" action="/<%="#{@post['id']}"%>/comment" method="post"> 
+  
+  <label for="content">Comment:</label>
+  <textarea class="u-full-width" placeholder="Put your comment here...."></textarea>
+ 
+  <input class="button-primary" type="submit" value="Add Comment">
+</form>
+
+
+</div>
 </body>
 </html>
 <!-- need a form form for comments, redirects back to post page  -->
+
+
