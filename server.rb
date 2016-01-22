@@ -37,9 +37,11 @@ module Forum
             session["user_id"] = @user["id"]
             redirect "/"
           else
+            @error = "Invalid Password"
             erb :login
           end
         else
+          @error = "Invalid Username"
           erb :login
         end
       end
@@ -70,10 +72,12 @@ module Forum
 
       # new post page
       get "/new" do
-        if @current_user = true
+        if @current_user == true
            erb :newpost
          else
+          @error = "Please Log In Before Posting"
           erb :login
+        end
       end
 
 
@@ -95,13 +99,18 @@ module Forum
          # post_id = ("SELECT post_id FROM comment")
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
          # @comment = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}").first
-         binding.pry
         erb :post 
        end
 
       # create new comment
        get "/:id/comment" do
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+          if @current_user == true
+             erb :comment
+          else
+            @error = "Please Log In Before Commenting"
+            erb :login
+          end
         erb :comment
        end
 

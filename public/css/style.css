@@ -69,6 +69,18 @@ h1.top-title {
   padding: 6px;
 }
 
+.error {
+  margin: 17px 0px 30px 47px;
+  font-size: 1.5em;
+}
+
+
+/*sign up form*/
+.signup_info{
+  margin: 17px 0px 30px 40px;
+  padding: 6px;
+}
+
 
 /*new post css*/
 .new-post {
