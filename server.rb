@@ -60,8 +60,7 @@ module Forum
   		post "/signup" do 
         username = params["username"]
         password = params["password"]
-    
-         conn.exec_params(
+            conn.exec_params(
            "INSERT INTO users(username, password) VALUES ($1, $2)",
            [username, password]
          )
@@ -71,7 +70,10 @@ module Forum
 
       # new post page
       get "/new" do
-        erb :newpost
+        if @current_user = true
+           erb :newpost
+         else
+          erb :login
       end
 
 
