@@ -8,7 +8,8 @@ body {
 .header {
   padding: 30px;
   padding-bottom: 5px;
-  border-bottom: 6px double rgb(231,231,231);
+  border-bottom: 6px double rgb(120,120,120);
+  background: rgb(227,227,227);
 
 }
 
@@ -18,6 +19,7 @@ ul.main_navigation {
   margin: 0;
   padding: 0;
   margin-top: 9px;
+  margin-bottom: 30px;
 
 }
 
@@ -50,9 +52,14 @@ h1.top-title {
   border-bottom: 4px groove grey;
 }
 
-.top-posts {
+.top_posts {
   margin-top: 40px;
-  padding: 30px;
+}
+
+.new_post_button {
+  margin: 20px;
+  margin-top: 46px;
+  padding: 10px;
 }
 
 
@@ -68,19 +75,15 @@ h1.top-title {
  margin-top: 30px;
 }
 
-.new_post_button {
-  margin: 20px;
-  margin-top: 58px;
-  padding: 10px;
-}
 
 .new_post {
   margin-left: 10%;
   margin-right: 15%;
 }
 
-textarea.u-full-width {
+textarea{
   height: 200px;
+  width: 800px;
 }
 
 .post-display {
@@ -88,33 +91,14 @@ textarea.u-full-width {
   padding: 6px;
 }
 
-/*adding arrow for voting*/
-/*#arrow {
-  width: 0; 
-  height: 0; 
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent; 
-  border-bottom: 12px solid black;
-  margin-left: 10px;
-  margin-bottom: 5px;
-  display: inline-block;
-}*/
 
-/*#arrow.voted {
-  width: 0; 
-  height: 0; 
-  border-left: 8px solid rgba(16,127,195,.3);
-  border-right: 8px solid rgba(16,127,195,.3); 
-  border-bottom: 12px solid rgb(24,143,216);
-  margin-left: 10px;
-  margin-bottom: 5px;
-  display: inline-block;
-  border-top-right-radius: 3px;
-  border-top-left-radius: 3px;
-}*/
 
 .votes {
-  margin-top: 8px;
-  margin-left: -3px;
+  margin-top: -20px;
+  margin-left: 80px;
+  font-size: .8em;
 }
 
+.author {
+  font-size: .8em;
+}

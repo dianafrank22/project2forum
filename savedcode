@@ -13,27 +13,6 @@ Statements in server file
       #   redirects('/post/:id')
       # end
 
-# viewing the post
-	   # 	get "/post/:id" do
-    #     @id = db.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-	   #   	erb :post
-		  # end
-
-# # adding a comment
-    #  get "/comment" do
-      # erb :comment
-    # end
-
-	   # post "/comment" do
-       # redirect? 
-    # end
-
-
-# for category.erb 
-# <% @category.each do |post| %>
-# 		<a href = "/post/<%="#{post['id']}"%>">
-# 			<%= "#{post["topic_name"]}"%>
-# 		</a>
 
 
 
@@ -44,15 +23,13 @@ show only comments with that post id?
 
 
  get "/:id" do
-         @postid = params[:id]
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-         @comment = conn.exec_params("SELECT * FROM comments where post_id = #{@postid}")
-         binding.pry
+         @comment = conn.exec_params("SELECT * FROM comments where post_id = #{@postid}").first
         erb :post 
        end
 
   <div class = "ten columns">
-    <% @comments.each do |comment|%>
+    <% @comment.each do |comment|%>
       <div class = comment>
        <p>  <%= "#{comment["content"]}"%></p>
       </div>

@@ -16,7 +16,7 @@
 		
     <div class="nine columns">
       <div class = "top">
-  		  <h1 class ="top-title">Top Posts</h1>
+  		  <h1 class ="top-title">Discussions</h1>
            <% @post.each do |post|%>
              
              <div class = "top_posts">
@@ -24,15 +24,20 @@
                   <a href = "/<%="#{post['id']}"%>">
                   <%= "#{post["topic_name"]}"%>
                   </a>
-                                 
-                
-                    <div class = "votes">
-                       <%= "#{post["votes"]}"%>
-                    </div>  
-          
-              
-              </div>
-            <% end %>    
+
+                  <% @user.each do |user| %>
+                  <div class = "author"> 
+                    By <%= "#{user["username"]}" %>
+                    </div>
+                    <% end %>
+                                  
+              </div> 
+                   <div class = "votes">
+                       <%= "#{post["votes"]}"%> Votes
+                 </div> 
+            <% end %>   
+
+
       </div>
     </div>
      
@@ -41,6 +46,9 @@
         <div class="new_post_button">
 		    	<a href="/new"><button type="button">New Post</button></a>
         </div>
+
+
+
 		</div>
 
   

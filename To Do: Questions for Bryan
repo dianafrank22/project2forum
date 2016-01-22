@@ -1,12 +1,14 @@
 To Do/ Questions for Bryan
 
 - sign up form and commment forms, update database, but brings user to internal server error page 
-	-display comments on post page
+-display comments on post page
 			
-
-- updating the votes on a click function (what is the psql logic)
- 	- if you unclick it i.e. click it again, it takes that vote away
- 
-
-
 -change it from log in to user name
+
+
+
+
+
+
+-format posts and comment pages
+-implement proper markdown format with gem file 
