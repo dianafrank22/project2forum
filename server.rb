@@ -19,6 +19,7 @@ module Forum
     # homepage
 		get "/" do
       @post = conn.exec("SELECT * FROM posts")
+      @user = conn.exec("SELECT * FROM users")
 		  erb :index
 		end
 
@@ -88,10 +89,21 @@ module Forum
 
       # VIEW POST PAGE
       get "/post/:id" do
-        @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+         @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+        # where user_id in post equals id in users
         erb :post 
        end
 
+      # create new comment
+       get "/post/:id/comment" do
+
+        erb :comment
+       end
+
+      # post new comment 
+      post "/post/:id/comment" do 
+        
+      end
 
 
 

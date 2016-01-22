@@ -9,21 +9,27 @@
 <body>
 
    <div class="row">
-		<div class="six columns">
-  		<h1>Top Posts</h1>
-
-      <% @post.each do |post|%>
-      <a href = "/post/<%="#{post['id']}"%>">
-      <%= "#{post["topic_name"]}"%>
-      </a>
-      <% end %>
-
-
+		
+    <div class="nine columns">
+      <div class = "top">
+  		  <h1>Top Posts</h1>
+           <% @post.each do |post|%>
+             <div class = "top_posts">
+              <a href = "/post/<%="#{post['id']}"%>">
+                 <%= "#{post["topic_name"]}"%>
+             </a>
+             </div>
+           <% end %>
+      </div>    
+    </div>
      
 
-    	<div class="six columns">
-			<button type="button"><a href="/new">New Post</a></button>
-		</div>
+    	<div class="three columns">
+        <div class="new_post_button">
+		    	<a href="/new"><button type="button">New Post</button></a>
+        </div>
+		  </div>
+
   </div> 
 
 </body>

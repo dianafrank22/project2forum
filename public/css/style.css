@@ -1,6 +1,6 @@
-.body {
+body {
 	margin: 10px;
-}
+  }
 
 .header {
   padding: 30px;
@@ -8,6 +8,7 @@
 /*  border-bottom: 4px solid #000;
 */
 }
+
 
 ul.main_navigation {
   float: right;
@@ -33,16 +34,27 @@ a {
 }
 
 
-h1.toptitle {
-	margin-top: 70px;
-	margin-left: 30px;
+.top {
+  margin: 17px 0px 30px 40px;
+  padding: 6px;
 }
 
-
-p {
-	margin-top: 20px;
-	margin-left: 30px;
+.login_info {
+  margin: 17px 0px 30px 40px;
+  padding: 6px;
 }
 
+.new_post_button {
+  margin: 20px;
+  padding: 10px;
+}
 
+.new_post {
+  margin-left: 10%;
+  margin-right: 15%;
+}
+
+textarea.u-full-width {
+  height: 200px;
+}
 

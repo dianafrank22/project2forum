@@ -12,29 +12,26 @@
 <h1> New Post </h1>
 
 <form class = "new" action="/new" method="post"> 
+  <div class="row">
+    <div class="six columns">
+      <label for="topic_name">Topic Title:</label>
+      <input class="u-full-width" type="text" placeholder="topic name">
+    </div>
+    <div class="six columns">
+    </div>
+  </div>
+  
 
-	<div class = "input-row">
-	<label for="topic_name">Topic Title: </label>
-	<input type ="text" name="topic_name"/>
-	</div>
-
-	<div class = "input-row">
-	<label for="content">content: </label>
-	<textarea name="content"></textarea>
-	</div>
-
-
-	<div class = "input-row">
-	<input type ="submit" value="Create New Post"/>
-	</div>
-
+  <label for="content">Content:</label>
+  <textarea class="u-full-width" placeholder="Put your discussion here...."></textarea>
+ 
+  <input class="button-primary" type="submit" value="Create New Post">
 </form>
 
 
 </div>
 </body>
 </html>
-
 <!-- put a form here | need post statement in server | redirects to post page when done  -->
 <!-- inserts current users id into table -->
 <!-- set comments and votes to 0 to start -->

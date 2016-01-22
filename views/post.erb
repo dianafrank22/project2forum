@@ -1,22 +1,29 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Post Page</title>
 	<link rel="stylesheet" href="css/style.css">
   	<link href="css/normalize.css" rel="stylesheet" type="text/css">
-   	<link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  	<link href="css/skeleton.css" rel="stylesheet" type="text/css">
+	<title>Post Page</title>
 </head>
 <body>
 
 <div class = "row">
-	<div class = "twelve columns">
-<h1> <%= "#{@post["topic_name"]}" %> </h1>
-
-<p> <%= "#{@post["content"]}"%> </p>
+	<div class = "four columns">
+		<h1> <%= "#{@post["topic_name"]}" %> </h1>
 
 	</div>
+
+	<div class = "eight columns">
+	</div>
+
+	<div class = "eight columns">
+	<p> <%= "#{@post["content"]}"%> </p>
+	</div>
+
+	<div class = "four columns">
+	</div>
+	
 </div>
 	
 </body>
