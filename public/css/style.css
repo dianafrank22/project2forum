@@ -1,12 +1,15 @@
 body {
 	margin: 10px;
+
   }
+
+/*main navigation from layout */
 
 .header {
   padding: 30px;
+  padding-bottom: 5px;
+  border-bottom: 6px double rgb(231,231,231);
 
-/*  border-bottom: 4px solid #000;
-*/
 }
 
 
@@ -15,13 +18,14 @@ ul.main_navigation {
   margin: 0;
   padding: 0;
   margin-top: 9px;
+
 }
 
 ul.main_navigation li {
   display: inline-block;
   font-size: 20px;
   position: relative;
-  margin: 0 5px 0 5px;
+  margin: 0 50px 0 15px;
 }
 
 a.title {
@@ -33,19 +37,36 @@ a {
 	text-decoration: none;
 }
 
+/*index page css*/
 
 .top {
   margin: 17px 0px 30px 40px;
   padding: 6px;
+ 
 }
 
+h1.top-title {
+  margin-top: 20px;
+  border-bottom: 4px groove grey;
+}
+
+.top-posts {
+  margin-top: 40px;
+  padding: 30px;
+}
+
+
+/*login css*/
 .login_info {
   margin: 17px 0px 30px 40px;
   padding: 6px;
 }
 
+
+/*new post css*/
 .new_post_button {
   margin: 20px;
+  margin-top: 58px;
   padding: 10px;
 }
 
@@ -58,3 +79,7 @@ textarea.u-full-width {
   height: 200px;
 }
 
+.post-display {
+  margin: 17px 0px 30px 40px;
+  padding: 6px;
+}
