@@ -94,26 +94,27 @@ textarea.u-full-width {
   height: 0; 
   border-left: 8px solid transparent;
   border-right: 8px solid transparent; 
-  border-bottom: 8px solid black;
+  border-bottom: 12px solid black;
   margin-left: 10px;
   margin-bottom: 5px;
   display: inline-block;
 }
 
-.voted {
-  width: 0; 
-  height: 0; 
-  border-left: 8px solid transparent;
-  border-right: 8px solid transparent; 
-  border-bottom: 8px rgb(16,127,195);
-  margin-left: 10px;
+#arrow.voted {
+/*  width: 0; 
+  height: 0; */
+  border-left: 8px solid rgba(16,127,195,.3);
+  border-right: 8px solid rgba(16,127,195,.3); 
+  border-bottom: 12px solid rgb(24,143,216);
+ /* margin-left: 10px;
   margin-bottom: 5px;
-  display: inline-block;
-  box-shadow: 0 0 5px rgba(16,127,195,.8);
+  display: inline-block;*/
+  border-top-right-radius: 3px;
+  border-top-left-radius: 3px;
 }
 
 .votes {
-  margin-top: 6px;
+  margin-top: 8px;
   margin-left: -3px;
 }
 
