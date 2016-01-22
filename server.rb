@@ -88,14 +88,14 @@ module Forum
        end
 
       # VIEW POST PAGE
-      get "/post/:id" do
+      get "/:id" do
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
         # where user_id in post equals id in users
         erb :post 
        end
 
       # create new comment
-       get "/post/:id/comment" do
+       get "/:id/comment" do
 
         erb :comment
        end

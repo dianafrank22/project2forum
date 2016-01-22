@@ -15,7 +15,7 @@
   		  <h1>Top Posts</h1>
            <% @post.each do |post|%>
              <div class = "top_posts">
-              <a href = "/post/<%="#{post['id']}"%>">
+              <a href = "/<%="#{post['id']}"%>">
                  <%= "#{post["topic_name"]}"%>
              </a>
              </div>
