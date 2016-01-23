@@ -17,6 +17,8 @@
     <div class="nine columns">
       <div class = "top">
   		  <h1 class ="top-title">Discussions</h1>
+        <button type = "button"> Sort by Votes </button>
+        <button type = "button"> Sort by Comments </button>
            <% @post.each do |post|%>
              
              <div class = "top_posts">
@@ -31,6 +33,11 @@
               </div>
                    <div class = "votes">
                        <%= "#{post["votes"]}"%> Votes
+                 </div> 
+
+
+                   <div class = "comments">
+                       <%= "#{post["num_comments"]}"%> Comments
                  </div> 
             <% end %>   
 

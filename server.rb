@@ -20,7 +20,6 @@ module Forum
 		get "/" do
       # Try to add a join to get the user data here as well
       @post = conn.exec("SELECT * FROM posts JOIN users ON posts.user_id = users.id ORDER BY votes DESC")
-
 		  erb :index
 		end
 
@@ -126,7 +125,9 @@ module Forum
           [content, post_id, user_id]
           )
 
+
           @new_comment = true
+           conn.exec("UPDATE posts SET num_comments = num_comments + 1 WHERE id = #{params["id"].to_i}")
            redirect "/"
           
         else

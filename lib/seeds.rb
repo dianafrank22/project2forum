@@ -34,7 +34,8 @@ conn.exec("CREATE TABLE posts(
     topic_name VARCHAR(255),
     votes INT DEFAULT 0,
     content VARCHAR,
-    user_id INT REFERENCES users(id) NOT NULL
+    user_id INT REFERENCES users(id) NOT NULL,
+    num_comments INT DEFAULT 0
   )"
 )
 
