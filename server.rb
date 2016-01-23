@@ -18,7 +18,7 @@ module Forum
     end
 
     def use_markdown(item)
-      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, underline: true, prettify: true)
       markdown.render(item)
     end
 
@@ -92,7 +92,6 @@ module Forum
         content = use_markdown(params["content"])
         user_id = session["user_id"]
 
-
         conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
         [topic_name, content, user_id]
         )
@@ -103,8 +102,10 @@ module Forum
 
       # VIEW POST PAGE
       get "/:id" do
+         # post_id = ("SELECT post_id FROM comment")
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}")
          @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
+       
         erb :post 
        end
 
@@ -123,7 +124,7 @@ module Forum
       # post new comment 
       post "/:id/comment" do
         if current_user
-          content = use_markdown(params["content"])
+          content = params["content"]
           post_id = params["id"].to_i
           user_id = session["user_id"]
           conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
