@@ -2,6 +2,7 @@ require "sinatra/base"
 require "pg"
 require "bcrypt"
 require 'pry'
+require 'redcarpet'
 
 module Forum
 	class Server < Sinatra::Base
@@ -16,10 +17,15 @@ module Forum
       end
     end
 
+    def use_markdown(item)
+      markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+      markdown.render(item)
+    end
+
     # homepage
 		get "/" do
-      # Try to add a join to get the user data here as well
-      @post = conn.exec("SELECT * FROM posts JOIN users ON posts.user_id = users.id ORDER BY votes DESC")
+      # PSQL specifying specific columns because it was confusing posts.id with users.id
+      @post = conn.exec("SELECT posts.id, posts.topic_name, posts.votes, posts.content, posts.user_id, posts.num_comments, users.username FROM posts, users WHERE posts.user_id = users.id ORDER BY votes DESC")
 		  erb :index
 		end
 
@@ -82,9 +88,10 @@ module Forum
 
 
       post "/new" do 
-        topic_name = params["topic_name"]
-        content = params["content"]
+        topic_name = use_markdown(params["topic_name"])
+        content = use_markdown(params["content"])
         user_id = session["user_id"]
+
 
         conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
         [topic_name, content, user_id]
@@ -96,10 +103,8 @@ module Forum
 
       # VIEW POST PAGE
       get "/:id" do
-         # post_id = ("SELECT post_id FROM comment")
-         @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+         @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}")
          @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
-         @authors = conn.exec("SELECT * FROM posts JOIN users ON posts.user_id = users.id")
         erb :post 
        end
 
@@ -118,7 +123,7 @@ module Forum
       # post new comment 
       post "/:id/comment" do
         if current_user
-          content = params["content"]
+          content = use_markdown(params["content"])
           post_id = params["id"].to_i
           user_id = session["user_id"]
           conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
@@ -151,8 +156,9 @@ module Forum
 
       # log out 
 
-      delete "/logout" do
-        conn.exec_params("DELETE FROM users WHERE id = #{params["id"].to_i}").first
+      get "/logout" do
+        session["user_id"] = nil
+        redirect back
       end
 
 
@@ -171,6 +177,9 @@ module Forum
       end
     end
   end
+ 
+
+
 
 
 end
