@@ -11,9 +11,12 @@
     <div class="header clearfix">
       <a href="/" class="title">FORUM NAME</a>
       <ul class="main_navigation">
-        <li><a href="/login">Log In</a></li>
-         </ul>
-
+      <% if current_user %> <li>Username</li>
+        <li><a href="/logout">Log Out</a></li>
+      <% else %>
+        <li><a href="/login">Log In</a></li>   
+      <% end %> 
+      </ul>
      </div>
   </div>   
 

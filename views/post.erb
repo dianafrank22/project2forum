@@ -41,6 +41,15 @@
 	</div>
 
 
+	  <div class = "ten columns">
+    	<% @comments.each do |comment|%>
+      <div class = comment>
+       <p>  <%= comment["content"] %></p>
+      </div>
+    <% end %>
+  </div>
+
+
 
 
 

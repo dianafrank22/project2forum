@@ -18,7 +18,10 @@ module Forum
 
     # homepage
 		get "/" do
+      # Try to add a join to get the user data here as well
       @post = conn.exec("SELECT * FROM posts ORDER BY votes DESC")
+
+      # This returns all users. Don't use this.
       @user = conn.exec("SELECT * FROM users")
 		  erb :index
 		end
@@ -62,17 +65,17 @@ module Forum
   		post "/signup" do 
         username = params["username"]
         password = params["password"]
-            conn.exec_params(
+        conn.exec_params(
            "INSERT INTO users(username, password) VALUES ($1, $2)",
            [username, password]
          )
 
-        erb :index
+        redirect "/"
       end
 
       # new post page
       get "/new" do
-        if @current_user == true
+        if current_user
            erb :newpost
          else
           @error = "Please Log In Before Posting"
@@ -98,7 +101,7 @@ module Forum
       get "/:id" do
          # post_id = ("SELECT post_id FROM comment")
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-         # @comment = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}").first
+         @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
         erb :post 
        end
 
@@ -115,16 +118,21 @@ module Forum
        end
 
       # post new comment 
-      post "/:id/comment" do 
-        content = params["content"]
-        post_id = params["id"].to_i
-        user_id = session["user_id"]
-        conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
-        [content, post_id, user_id]
-        )
+      post "/:id/comment" do
+        if current_user
+          content = params["content"]
+          post_id = params["id"].to_i
+          user_id = session["user_id"]
+          conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
+          [content, post_id, user_id]
+          )
 
-        @new_comment = true
-        erb :index
+          @new_comment = true
+           redirect "/"
+          
+        else
+          redirect "/"
+        end
       end
 
       # changing votes
@@ -140,6 +148,20 @@ module Forum
       end
 
 
+
+      # log out 
+
+      DELETE "/logout" do 
+        session["user_id"]=nil
+        redirect "/"
+      end
+      # log out
+      # delete "/:id" do
+      
+      # conn.exec("DELETE FROM #{users} WHERE id = #{params["id"].to_i}").first
+      # "Logged Out"
+      # end
+ 
 
   private
 

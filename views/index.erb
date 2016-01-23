@@ -22,15 +22,13 @@
              <div class = "top_posts">
 
                   <a href = "/<%="#{post['id']}"%>">
-                  <%= "#{post["topic_name"]}"%>
+                  <%= post["topic_name"]%>
                   </a>
 
-                  <% @user.each do |user| %>
                   <div class = "author"> 
-                    By <%= "#{user["username"]}" %>
+                    By <%#= "#{post["username"]}" %> <!-- USE A JOIN -->
                     </div>
-                    <% end %>
-                                  
+               
               </div> 
                    <div class = "votes">
                        <%= "#{post["votes"]}"%> Votes
