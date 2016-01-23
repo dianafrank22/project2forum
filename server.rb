@@ -44,8 +44,8 @@ module Forum
 
      post "/login" do
         @user = conn.exec_params("SELECT * FROM users WHERE username = $1", [params["username"]]).first
-        if @user
-          if BCrypt::Password.new(@user["password"]) == params["password"] 
+       if @user
+          if BCrypt::Password.new(@user["password"]) == params["password"]
             session["user_id"] = @user["id"]
             redirect "/"
           else
@@ -74,7 +74,6 @@ module Forum
   		post "/signup" do 
         username = params["username"]
         encrypt_password = BCrypt::Password.create(params["password"])
-        binding.pry
         conn.exec_params(
            "INSERT INTO users(username, password) VALUES ($1, $2)",
            [username, encrypt_password]
