@@ -29,6 +29,12 @@ module Forum
 		  erb :index
 		end
 
+    get "/bycomments" do
+      # sorting index page by number of comments
+      @post = conn.exec("SELECT posts.id, posts.topic_name, posts.votes, posts.content, posts.user_id, posts.num_comments, users.username FROM posts, users WHERE posts.user_id = users.id ORDER BY num_comments DESC")
+      erb :bycomments
+    end
+
  
 
     # login page
@@ -131,7 +137,7 @@ module Forum
           )
 
           @new_comment = true
-           conn.exec("UPDATE posts SET num_comments = num_comments + 1 WHERE id = #{params["id"].to_i}")
+           conn.exec_params("UPDATE posts SET num_comments = num_comments + 1 WHERE id = #{params["id"].to_i}")
            redirect "/"
           
         else
