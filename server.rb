@@ -19,10 +19,8 @@ module Forum
     # homepage
 		get "/" do
       # Try to add a join to get the user data here as well
-      @post = conn.exec("SELECT * FROM posts ORDER BY votes DESC")
+      @post = conn.exec("SELECT * FROM posts JOIN users ON posts.user_id = users.id ORDER BY votes DESC")
 
-      # This returns all users. Don't use this.
-      @user = conn.exec("SELECT * FROM users")
 		  erb :index
 		end
 
@@ -102,6 +100,7 @@ module Forum
          # post_id = ("SELECT post_id FROM comment")
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
          @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
+         @authors = conn.exec("SELECT * FROM posts JOIN users ON posts.user_id = users.id")
         erb :post 
        end
 
@@ -151,17 +150,10 @@ module Forum
 
       # log out 
 
-      # DELETE "/logout" do 
-      #   session["user_id"]=nil
-      #   redirect "/"
-      # end
-      # log out
-      # delete "/:id" do
-      
-      # conn.exec("DELETE FROM #{users} WHERE id = #{params["id"].to_i}").first
-      # "Logged Out"
-      # end
- 
+      delete "/logout" do
+        conn.exec_params("DELETE FROM users WHERE id = #{params["id"].to_i}").first
+      end
+
 
   private
 

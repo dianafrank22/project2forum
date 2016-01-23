@@ -24,12 +24,11 @@
                   <a href = "/<%="#{post['id']}"%>">
                   <%= post["topic_name"]%>
                   </a>
-
-                  <div class = "author"> 
-                    By <%#= "#{post["username"]}" %> <!-- USE A JOIN -->
-                    </div>
-               
               </div> 
+
+              <div class = "author">
+              By <%= post["username"] %>
+              </div>
                    <div class = "votes">
                        <%= "#{post["votes"]}"%> Votes
                  </div> 
