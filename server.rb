@@ -102,8 +102,7 @@ module Forum
 
       # VIEW POST PAGE
       get "/:id" do
-         # post_id = ("SELECT post_id FROM comment")
-         @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}")
+         @post = conn.exec("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
          @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
        
         erb :post 
@@ -130,7 +129,6 @@ module Forum
           conn.exec_params( "INSERT INTO comments(content, post_id, user_id) VALUES ($1, $2, $3)",
           [content, post_id, user_id]
           )
-
 
           @new_comment = true
            conn.exec("UPDATE posts SET num_comments = num_comments + 1 WHERE id = #{params["id"].to_i}")
