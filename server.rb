@@ -151,10 +151,10 @@ module Forum
 
       # log out 
 
-      DELETE "/logout" do 
-        session["user_id"]=nil
-        redirect "/"
-      end
+      # DELETE "/logout" do 
+      #   session["user_id"]=nil
+      #   redirect "/"
+      # end
       # log out
       # delete "/:id" do
       
