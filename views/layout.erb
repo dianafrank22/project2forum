@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="css/style.css">
+ <link href='https://fonts.googleapis.com/css?family=Lobster|Poiret+One|Pacifico' rel='stylesheet' type='text/css'>
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
-   <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/style.css">
   <title>FORUM NAME</title>
 </head>
 <body>
@@ -13,9 +14,9 @@
       <ul class="main_navigation">
       <% if current_user %> 
       <li> <%= @user["username"]%></li>
-        <li><a href="/logout">Log Out</a></li>
+        <li><a href="/logout" class="nav_link">Log Out</a></li>
       <% else %>
-        <li><a href="/login">Log In</a></li>   
+        <li><a href="/login" class = "nav_link">Log In</a></li>   
       <% end %> 
       </ul>
      </div>

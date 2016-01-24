@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <link rel="stylesheet" href="css/style.css">
+  
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="css/style.css">
   <title>Home</title>
 </head>
 
@@ -16,15 +17,15 @@
     
     <div class="nine columns">
       <div class = "top">
-        <h1 class ="top-title">Categories</h1>
+        <h1 class ="categories-title">Categories</h1>
 
            <% @categories.each do |category|%>
              
-             <div class = "top_posts">
+             <div id = "category" class = "all_categories">
 
-                  <a href = "/<%=category["id"]%>">
-                  <%= category["category_name"]%>
-                  </a>
+                 <p> <a href = "/<%=category["id"]%>" class = "cat_name">
+                  <%= category["category_name"]%>                  
+                  </a> </p>
               </div> 
 
               <% end %>

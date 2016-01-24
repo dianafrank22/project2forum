@@ -10,9 +10,21 @@ body {
   padding-bottom: 5px;
   border-bottom: 6px double rgb(120,120,120);
   background: rgb(227,227,227);
+  font-family: 'Pacifico', cursive;
+  color: black;
 
 }
 
+
+a.title {
+  color: black;
+  font-size: 40px;
+}
+
+a.nav_link {
+  color: black;
+  font-size: 1em;
+}
 
 ul.main_navigation {
   float: right;
@@ -28,10 +40,7 @@ ul.main_navigation li {
   font-size: 20px;
   position: relative;
   margin: 0 50px 0 15px;
-}
-
-a.title {
-	font-size: 30px;
+  color: black;
 }
 
 
@@ -47,20 +56,57 @@ a {
  
 }
 
+h1.categories-title {
+  margin-top: 20px;
+  border-bottom: 4px groove grey;
+  font-family: 'poiret one', cursive;
+  color: black;
+  font-size: 2em;
+}
+
 h1.top-title {
   margin-top: 20px;
   border-bottom: 4px groove grey;
+  font-family: 'poiret one', cursive;
+  color: black;
 }
 
-.top_posts {
-  margin-top: 40px;
+.all_categories {
+  width: 200px;
+  height: 200px;
+  border: 4px solid #cccccc;
+  border-radius: 4px;
+  margin: 10px;
+  display: inline-block;
+  text-align: center;
+  margin-right: auto;
+  margin-left: auto;
+  padding: 10px;
+  color: white;
 }
+
+a.cat_name {
+  color: white;
+  font-family: 'poiret one', cursive;
+  font-size: 2em;
+  padding-top: 30px;
+}
+
+.new_cat_button {
+  margin: 20px;
+  margin-top: 25px;
+  padding: 10px;
+  color: black;
+}
+
 
 .new_post_button {
   margin: 20px;
   margin-top: 46px;
   padding: 10px;
 }
+
+
 
 
 /*login css*/
@@ -113,4 +159,9 @@ textarea{
 
 .author {
   font-size: .8em;
+}
+
+/*individual category page*/
+p {
+  color: black;
 }
