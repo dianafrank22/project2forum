@@ -148,7 +148,7 @@ module Forum
         )
 
         @new_post = true
-        redirect "/"
+        redirect back
        end
 
 
@@ -186,7 +186,7 @@ module Forum
 
           @new_comment = true
            conn.exec_params("UPDATE posts SET num_comments = num_comments + 1 WHERE id = #{params["id"].to_i}")
-           redirect "/"
+           redirect back
           
         else
           redirect "/"
