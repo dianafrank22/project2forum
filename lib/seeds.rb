@@ -13,6 +13,14 @@ end
 
 
 
+# table for categories
+conn.exec("DROP TABLE IF EXISTS categories")
+
+conn.exec("CREATE TABLE categories(
+	id SERIAL PRIMARY KEY,
+	category_name VARCHAR 
+	)"
+)
 
 # creates user table
 conn.exec("DROP TABLE IF EXISTS users")
@@ -25,6 +33,7 @@ conn.exec("CREATE TABLE users(
 )
 
 
+
 # creates table for posts
 
 conn.exec("DROP TABLE IF EXISTS posts")
@@ -35,7 +44,8 @@ conn.exec("CREATE TABLE posts(
     votes INT DEFAULT 0,
     content VARCHAR,
     user_id INT REFERENCES users(id) NOT NULL,
-    num_comments INT DEFAULT 0
+    num_comments INT DEFAULT 0,
+    cat_id INT REFERENCES categories(id) NOT NULL
   )"
 )
 
@@ -51,3 +61,5 @@ conn.exec("CREATE TABLE comments(
  	votes INT DEFAULT 0
   )"
 )
+
+

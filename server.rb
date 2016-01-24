@@ -5,7 +5,7 @@ require 'pry'
 require 'redcarpet'
 
 module Forum
-	class Server < Sinatra::Base
+  class Server < Sinatra::Base
 
     enable :sessions
 
@@ -22,25 +22,11 @@ module Forum
       markdown.render(item)
     end
 
-    # homepage
-		get "/" do
-      # PSQL specifying specific columns because it was confusing posts.id with users.id
-      @post = conn.exec("SELECT posts.id, posts.topic_name, posts.votes, posts.content, posts.user_id, posts.num_comments, users.username FROM posts, users WHERE posts.user_id = users.id ORDER BY votes DESC")
-		  erb :index
-		end
 
-    get "/bycomments" do
-      # sorting index page by number of comments
-      @post = conn.exec("SELECT posts.id, posts.topic_name, posts.votes, posts.content, posts.user_id, posts.num_comments, users.username FROM posts, users WHERE posts.user_id = users.id ORDER BY num_comments DESC")
-      erb :bycomments
+ # login page
+    get "/login" do
+      erb :login
     end
-
- 
-
-    # login page
-		get "/login" do
-   		erb :login
-  	end
 
      post "/login" do
         @user = conn.exec_params("SELECT * FROM users WHERE username = $1", [params["username"]]).first
@@ -69,13 +55,13 @@ module Forum
       
 
       # signup page brings up form
-  		get "/signup" do 
-  			erb :signup
-  		end
+      get "/signup" do 
+        erb :signup
+      end
 
       # sends form data to data base and creates a new user
       # try and encrypt password with bcrypt later! 
-  		post "/signup" do 
+      post "/signup" do 
         username = params["username"]
         encrypt_password = BCrypt::Password.create(params["password"])
         conn.exec_params(
@@ -86,8 +72,62 @@ module Forum
         redirect "/"
       end
 
-      # new post page
-      get "/new" do
+     
+
+     
+
+      get "/" do
+      # PSQL specifying specific columns because it was confusing posts.id with users.id
+      # add category table selectory in here
+        @categories = conn.exec("SELECT * FROM categories")
+        erb :index
+      end
+
+      
+
+      # creates new category
+       get "/new_cat" do 
+       if current_user
+           erb :newcategory
+         else
+          @error = "Please Log In Before Creating New Category"
+          erb :login
+        end
+      end
+
+       post "/new_cat" do 
+        category_name = use_markdown(params["category_name"])
+        conn.exec_params( "INSERT INTO categories(category_name) VALUES ($1)",
+        [category_name]
+        )
+
+        @new_category = true
+        redirect '/'
+       end
+
+
+ 
+   
+    # shows posts in category by votes
+      get "/:id" do 
+        @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = #{params["id"]} ORDER BY VOTES DESC")
+        @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
+        erb :category
+      end
+
+    # sorting category page by number of comments 
+    get "/:id/bycomments" do
+    
+      @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = categories.id ORDER BY num_comments DESC")
+      erb :bycomments
+    end
+
+ 
+ 
+
+          # new post page
+      get "/:id/new" do
+        @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
         if current_user
            erb :newpost
          else
@@ -97,28 +137,32 @@ module Forum
       end
 
 
-      post "/new" do 
+      post "/:id/new" do 
         topic_name = use_markdown(params["topic_name"])
         content = use_markdown(params["content"])
         user_id = session["user_id"]
+        cat_id = params["id"].to_i
 
-        conn.exec_params( "INSERT INTO posts(topic_name, content, user_id) VALUES ($1, $2, $3)",
-        [topic_name, content, user_id]
+        conn.exec_params( "INSERT INTO posts(topic_name, content, user_id, cat_id) VALUES ($1, $2, $3, $4)",
+        [topic_name, content, user_id, cat_id]
         )
 
         @new_post = true
         redirect "/"
        end
 
-      # VIEW POST PAGE
-      get "/:id" do
-         @post = conn.exec("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
-         @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
-       
-        erb :post 
-       end
 
-      # create new comment
+
+       # view post page
+      get "/post/:id" do
+        @post = conn.exec("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
+        @comments = conn.exec_params("SELECT * FROM comments WHERE post_id = #{params["id"].to_i}")
+        erb :post
+      end
+
+
+
+       # create new comment
        get "/:id/comment" do
          @post = conn.exec_params("SELECT * FROM posts WHERE id = #{params["id"].to_i}").first
           if @current_user == true
@@ -151,7 +195,6 @@ module Forum
 
       # changing votes
       get "/:id/vote/up" do 
-
         conn.exec_params( "UPDATE posts SET votes = votes + 1 WHERE id = #{params["id"].to_i}")
        redirect back 
       end
@@ -164,8 +207,7 @@ module Forum
 
 
 
-
-  private
+    private
 
     def conn
       if ENV["RACK_ENV"] == 'production'
@@ -179,10 +221,8 @@ module Forum
        @conn ||= PG.connect(dbname: "project2")
       end
     end
-  end
- 
+  
 
 
-
-
+end
 end

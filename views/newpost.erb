@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="css/style.css">
-  	<link href="css/normalize.css" rel="stylesheet" type="text/css">
-   	<link href="css/skeleton.css" rel="stylesheet" type="text/css">
-	<title>new post</title>
-	
+  <link rel="stylesheet" href="css/style.css">
+    <link href="css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  <title>new post</title>
+  
 </head>
 <body>
       <div class = "new_post">
@@ -14,7 +14,7 @@
       <%else%>
 
   <h1> New Post </h1>
-      <form class = "new-post" action="/new" method="post"> 
+      <form class = "new-post" action="/<%="#{@category['id']}"%>/new" method="post"> 
 
         <div class = "input-row">
         <label for="topic_name">Topic Name: </label>
@@ -39,7 +39,4 @@
 
 </body>
 </html>
-<!-- put a form here | need post statement in server | redirects to post page when done  -->
-<!-- inserts current users id into table -->
-<!-- set comments and votes to 0 to start -->
 

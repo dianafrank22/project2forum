@@ -13,47 +13,33 @@
 <body>
 
   <div class="row">
-		
+    
     <div class="nine columns">
       <div class = "top">
-  		  <h1 class ="top-title">Discussions</h1>
-        <a href = "/"><button type = "button"> Sort by Votes </button></a>
-        <a href = "/bycomments"><button type = "button"> Sort by Comments </button></a>
-           <% @post.each do |post|%>
+        <h1 class ="top-title">Categories</h1>
+
+           <% @categories.each do |category|%>
              
              <div class = "top_posts">
 
-                  <a href = "/<%=post["id"]%>">
-                  <%= post["topic_name"]%>
+                  <a href = "/<%=category["id"]%>">
+                  <%= category["category_name"]%>
                   </a>
               </div> 
 
-              <div class = "author">
-              By <%= post["username"] %>
-              </div>
-                   <div class = "votes">
-                       <%= "#{post["votes"]}"%> Votes
-                 </div> 
-
-
-                   <div class = "comments">
-                       <%= "#{post["num_comments"]}"%> Comments
-                 </div> 
-            <% end %>   
-
-
+              <% end %>
       </div>
     </div>
      
 
     <div class="three columns">
-        <div class="new_post_button">
-		    	<a href="/new"><button type="button">New Post</button></a>
+        <div class="new_cat_button">
+          <a href="/new_cat"><button type="button">New Category</button></a>
         </div>
 
 
 
-		</div>
+    </div>
 
   
   </div> 
@@ -62,7 +48,3 @@
 
 </body>
 </html>
-
-
-	<!--  PSQL Select Statement SELECT post-name FROM posts ORDER BY (votes) DESC Limit 3-->
-
