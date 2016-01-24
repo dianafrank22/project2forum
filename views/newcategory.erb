@@ -2,62 +2,32 @@
 <html>
 <head>
   <link rel="stylesheet" href="css/style.css">
-  <link href="css/normalize.css" rel="stylesheet" type="text/css">
-  <link href="css/skeleton.css" rel="stylesheet" type="text/css">
-  <title>Home</title>
+    <link href="css/normalize.css" rel="stylesheet" type="text/css">
+    <link href="css/skeleton.css" rel="stylesheet" type="text/css">
+  <title>new category</title>
+  
 </head>
-
-<script src="js/jquery-2.1.4.js"></script> 
-<script src="js/script.js"></script>
-
 <body>
+      <div class = "new_category">
+      <% if @new_categoryt%>
+      <%else%>
 
-  <div class="row">
-		
-    <div class="nine columns">
-      <div class = "top">
-  		  <h1 class ="top-title">Discussions</h1>
-        <a href = "/"><button type = "button"> Sort by Votes </button></a>
-        <a href = "/bycomments"><button type = "button"> Sort by Comments </button></a>
-           <% @posts.each do |post|%>
-             
-             <div class = "top_posts">
+  <h1> New Category </h1>
+      <form class = "new-category" action="/new_cat" method="post"> 
 
-                  <a href = "/<%=post["id"]%>">
-                  <%= post["topic_name"]%>
-                  </a>
-              </div> 
-
-              <div class = "author">
-              By <%= post["username"] %>
-              </div>
-                   <div class = "votes">
-                       <%= "#{post["votes"]}"%> Votes
-                 </div> 
-
-
-                   <div class = "comments">
-                       <%= "#{post["num_comments"]}"%> Comments
-                 </div> 
-            <% end %>   
-
-
-      </div>
-    </div>
-     
-
-    <div class="three columns">
-        <div class="new_post_button">
-		    	<a href="/new"><button type="button">New Post</button></a>
+        <div class = "input-row">
+        <label for="category_name">Category Name: </label>
+        <input type ="text" name="category_name"/>
         </div>
 
+        <div class = "input-row">
+        <input type ="submit" value="Create New Category"/>
+        </div>
 
+      </form>
+      <% end %>
 
-		</div>
-
-  
-  </div> 
-
+      </div>
 
 
 </body>
