@@ -110,8 +110,7 @@ module Forum
    
       # shows posts in category by votes
       get "/:id" do 
-        # @posts = conn.exec("SELECT * FROM posts ")
-        @posts = conn.exec("SELECT posts.id, posts.topic_name, posts.votes, posts.content, posts.user_id, posts.num_comments, posts.cat_id, users.username FROM posts, users WHERE posts.user_id = users.id WHERE posts.cat_id = #{params["id"]} ORDER BY VOTES DESC")
+        @posts = conn.exec("SELECT * FROM posts  WHERE posts.cat_id = #{params["id"]} ORDER BY VOTES DESC")
         @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
         erb :category
       end
