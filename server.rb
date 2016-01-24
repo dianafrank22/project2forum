@@ -117,8 +117,8 @@ module Forum
 
     # sorting category page by number of comments 
     get "/:id/bycomments" do
-    
-      @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = categories.id ORDER BY num_comments DESC")
+      @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
+      @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = #{params["id"]} ORDER BY num_comments DESC")
       erb :bycomments
     end
 

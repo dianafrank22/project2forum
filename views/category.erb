@@ -17,8 +17,8 @@
     <div class="nine columns">
       <div class = "top">
   		  <h1 class ="top-title">Discussions</h1>
-        <a href = "/"><button type = "button"> Sort by Votes </button></a>
-        <a href = "/bycomments"><button type = "button"> Sort by Comments </button></a>
+        <a href = "/<%="#{@category['id']}"%>"><button type = "button"> Sort by Votes </button></a>
+        <a href = "/<%="#{@category['id']}"%>/bycomments"><button type = "button"> Sort by Comments </button></a>
            <% @posts.each do |post|%>
              
              <div class = "top_posts">
