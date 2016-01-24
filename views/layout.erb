@@ -12,6 +12,7 @@
       <a href="/" class="title">FORUM NAME</a>
       <ul class="main_navigation">
       <% if current_user %> 
+      <li> <%= @user["username"]%></li>
         <li><a href="/logout">Log Out</a></li>
       <% else %>
         <li><a href="/login">Log In</a></li>   
