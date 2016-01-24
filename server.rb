@@ -108,24 +108,25 @@ module Forum
 
  
    
-    # shows posts in category by votes
+      # shows posts in category by votes
       get "/:id" do 
-        @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = #{params["id"]} ORDER BY VOTES DESC")
+        # @posts = conn.exec("SELECT * FROM posts ")
+        @posts = conn.exec("SELECT posts.id, posts.topic_name, posts.votes, posts.content, posts.user_id, posts.num_comments, posts.cat_id, users.username FROM posts, users WHERE posts.user_id = users.id WHERE posts.cat_id = #{params["id"]} ORDER BY VOTES DESC")
         @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
         erb :category
       end
 
-    # sorting category page by number of comments 
-    get "/:id/bycomments" do
-      @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
-      @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = #{params["id"]} ORDER BY num_comments DESC")
-      erb :bycomments
-    end
+      # sorting category page by number of comments 
+      get "/:id/bycomments" do
+        @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
+        @posts = conn.exec("SELECT * FROM posts WHERE posts.cat_id = #{params["id"]} ORDER BY num_comments DESC")
+        erb :bycomments
+      end
 
  
  
 
-          # new post page
+      # new post page
       get "/:id/new" do
         @category = conn.exec_params("SELECT * FROM categories WHERE id = #{params["id"].to_i}").first
         if current_user
@@ -148,7 +149,7 @@ module Forum
         )
 
         @new_post = true
-        redirect back
+        redirect "/"
        end
 
 

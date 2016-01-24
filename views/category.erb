@@ -17,20 +17,21 @@
     <div class="nine columns">
       <div class = "top">
   		  <h1 class ="top-title">Discussions</h1>
-        <a href = "/<%="#{@category['id']}"%>"><button type = "button"> Sort by Votes </button></a>
-        <a href = "/<%="#{@category['id']}"%>/bycomments"><button type = "button"> Sort by Comments </button></a>
+        <a href = "/<%="#{@category['id']}"%>"><button type = "button" class = "vote_button"> Sort by Votes </button></a>
+        <a href = "/<%="#{@category['id']}"%>/bycomments"><button type = "button" class = "comment_button"> Sort by Comments </button></a>
            <% @posts.each do |post|%>
              
              <div class = "top_posts">
 
-                  <a href = "/post/<%=post["id"]%>">
+                  <a href = "/post/<%=post["id"]%>" class = "topic_name">
                   <%= post["topic_name"]%>
                   </a>
               </div> 
 
-              <div class = "author">
-              By <%= post["username"] %>
-              </div>
+                  <div class = "author">
+                    By <%= post["username"] %>
+                  </div>
+
                    <div class = "votes">
                        <%= "#{post["votes"]}"%> Votes
                  </div> 
@@ -42,6 +43,7 @@
             <% end %>   
 
 
+              
       </div>
     </div>
      

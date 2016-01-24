@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<link href="css/normalize.css" rel="stylesheet" type="text/css">
-  	<link href="css/skeleton.css" rel="stylesheet" type="text/css">
-  	<link rel="stylesheet" href="css/style.css">
+  	<link href="/css/normalize.css" rel="stylesheet" type="text/css">
+  	<link href="/css/skeleton.css" rel="stylesheet" type="text/css">
+  	<link rel="stylesheet" href="/css/style.css">
 	<title>Post Page</title>
 </head>
 <body>
@@ -31,7 +31,7 @@
 
 
 	<div class = "ten columns">
-	<p> <%= "#{@post["content"]}"%> </p>
+	<p class = "content"> <%= "#{@post["content"]}"%> </p>
 	</div>
 
 	<div class = "four columns">
@@ -47,15 +47,7 @@
        <p>  <%= comment["content"] %></p>
       </div>
     <% end %>
-  </div>
-
-
-
-
-
-
-
-
+  	</div>
 
 
 
