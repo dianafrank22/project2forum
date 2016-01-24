@@ -59,9 +59,13 @@ module Forum
       end
 
 
-      # compare given information to database
-      # if true session user_id = id 
-      # enable sessions
+      # log out 
+
+      get "/logout" do
+        @user = current_user
+        session.clear
+        redirect "/"
+      end
       
 
       # signup page brings up form
@@ -159,12 +163,6 @@ module Forum
 
 
 
-      # log out 
-
-      get "/logout" do
-        session["user_id"] = nil
-        redirect back
-      end
 
 
   private
