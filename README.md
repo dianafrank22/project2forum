@@ -1,10 +1,8 @@
 
 # Talk About 
-### A Forum Styled Site 
+#### *A Forum Styled Site* 
 ***
-
-
-
+<br></br>
 ### Feature Specs 
 ***
 1. **Home Page**
